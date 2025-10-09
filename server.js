@@ -3,7 +3,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const routerHome = require("./routes/homeRoute");
 const routerUsuario = require("./routes/usuarioRoute");
 const routerAdmin = require("./routes/adminRoute");
-//const routerUsuario = require("./routes/usuarioRoute");
+
 const server = express();
 
 //configurações do EJS
@@ -25,7 +25,6 @@ server.use(express.json());
 server.use("/", routerHome);
 server.use('/usuario',routerUsuario);
 server.use('/admin',routerAdmin);
-//server.use("/usuario", routerUsuario);
 
 server.listen(5550, function() {
     console.log("servidor web em funcionamento na porta 5550!");
