@@ -1,0 +1,93 @@
+<script src="/js/js/listagem.js" defer></script>
+<div class="container-sm">
+    <h1>Listagem de Itens</h1>
+    <a href="/admin/cadastrarItem" class="btn btn-primary">Cadastrar Novo Item</a>
+    <a href="/admin" class="btn btn-secondary">Voltar</a>
+    <div class="form-floating mt-3">
+        <select name="select" id="select" class="form-control">
+            <option value="1" selected>Produtos</option>
+            <option value="2">Insumos</option>
+            <option value="3">Serviços</option>
+            <option value="4">Equipamentos Agricolas</option>
+            <option value="5">Marcas</option>
+        </select>
+        <label for="select">Tipo de Item</label>
+    </div>
+
+    <table class="table table-bordered mt-3" style="color: #000;" id="1">
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Quantidade em Estoque</th>
+            <th>Descricao</th>
+            <th>Alterar/Excluir</th>
+        </thead>
+        <tbody>
+            <%for(let i=0;i<listaProdutos.length;i++) {%>
+                <tr class="<%="tipo"+listaProdutos[i].tipo%>" data-tipoLinha= <%=listaProdutos[i].tipo%>>
+                    <td><%=listaProdutos[i].id%></td>
+                    <td><%=listaProdutos[i].nome%></td>
+                    <td><%=listaProdutos[i].preco%>R$</td>
+                    <td>A fazer</td>
+                    <td><%=listaProdutos[i].descricao%></td>
+                    <td>
+                        <a href="/admin/alterarItem/<%=listaProdutos[i].tipo%>/<%=listaProdutos[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        <button data-id="<%=listaProdutos[i].id%>" data-tipo="1"  data-nome='<%=listaProdutos[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+
+
+    <table class="table table-bordered mt-3" style="color: #000;" id="4">
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Marca - ID</th>
+            <th>Marca</th>
+            <th>Quantidade</th>
+            <th>Alterar/Excluir</th>
+        </thead>
+        <tbody>
+            <%for(let i=0;i<listaEqAg.length;i++) {%>
+                <tr>
+                    <td><%=listaEqAg[i].id%></td>
+                    <td><%=listaEqAg[i].nome%></td>
+                    <td><%=listaEqAg[i].preco%>R$</td>
+                    <td><%=listaEqAg[i].marca%></td>
+                    <td><%=listaEqAg[i].marca_nome%></td>
+                    <td>A fazer</td>
+                    <td>
+                        <a href="/admin/alterarItem/4/<%=listaEqAg[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        <button data-id="<%=listaEqAg[i].id%>" data-tipo="4"  data-nome='<%=listaEqAg[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered mt-3" style="color: #000;" id="5">
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Equipamentos</th>
+            <th>Alterar/Excluir</th>
+        </thead>
+        <tbody>
+            <%for(let i=0;i<listaMarcas.length;i++) {%>
+                <tr>
+                    <td><%=listaMarcas[i].id%></td>
+                    <td><%=listaMarcas[i].nome%></td>
+                    <td></td>
+                    <td>
+                        <a href="/admin/alterarItem/5/<%=listaMarcas[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        <button data-id="<%=listaMarcas[i].id%>" data-tipo="5"  data-nome='<%=listaMarcas[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+</div>

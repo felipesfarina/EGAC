@@ -1,0 +1,115 @@
+<div class="hero-wrap hero-bread" style=" background-image: url('images/telefone.jpg');">
+      <div class="container">
+              <div class="container">
+       <div class="row no-gutters slider-text align-items-center justify-content-center">
+  <div class="col-md-12 ftco-animate text-center">
+    <p class="breadcrumbs">
+      <span><a href="index.html"  style="color: rgb(33, 207, 44); margin-left: 550px; font-size: 25px;">Home</a></span> 
+      <span style="color: black; font-size: 25px;">Contate-nos</span>
+    </p>
+    <h1 style="font-size: 35px; color: black; font-weight: bold; margin-left: 550px;">
+      Envie-nos uma Mensagem!
+    </h1>
+  </div>
+</div>
+
+      </div>
+      </div>
+    </div>
+
+    <section class="ftco-section contact-section bg-light">
+      <div class="container">
+        <div class="row d-flex justify-content-center mb-5 contact-info">
+          <div class="col-md-3 d-flex justify-content-center">
+            <div class="info bg-white p-4 text-center">
+              <p><strong>Endereço:</strong><br> Avenida Paulista, 1234 - São Paulo, SP</p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex justify-content-center">
+            <div class="info bg-white p-4 text-center">
+              <p><strong>Telefone:</strong><br> <a href="tel://115934637275">+55 11 59346-37275</a></p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex justify-content-center">
+            <div class="info bg-white p-4 text-center">
+              <p><strong>Email:</strong><br> <a href="mailto:egac@egac.com.br">egac@egac.com.br</a></p>
+            </div>
+          </div>
+        </div>
+    
+        <form id="formulario" class="bg-white p-5 contact-form w-100" novalidate>
+  <h3 class="mb-4 text-center">Entre em Contato</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" onkeydown="apagarErro()">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" class="form-control" placeholder="Telefone">
+      </div>
+       <div class="form-group">
+        <label for="sexo">Sexo</label>
+        <select id="sexo" name="sexo" class="form-control">
+          <option value="">Selecione</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" class="form-control" placeholder="CPF" required>
+      </div>
+      <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade">
+      </div>
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" name="estado" class="form-control" placeholder="Estado">
+      </div>
+         <div class="form-group">
+        <label for="profissao">Profissão</label>
+        <input type="text" id="profissao" name="profissao" class="form-control" placeholder="Profissão">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="mensagem">Mensagem</label>
+    <textarea id="mensagem" name="mensagem" class="form-control textarea-mensagem" rows="5" placeholder="Digite sua mensagem aqui..."></textarea>
+  </div>
+
+  <div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+  </div>
+</form>
+
+    <div class="mt-5">
+      <h4 class="mb-3">Contatos Recebidos</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="ckTodos"></th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="tb-body">
+          
+        </tbody>
+      </table>
+      <button class="btn btn-danger" id="btnExcluirSelecionados">Excluir Selecionados</button>
+    </div>

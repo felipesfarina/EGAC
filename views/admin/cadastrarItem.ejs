@@ -1,0 +1,41 @@
+<script src="/js/js/cadastrarItem.js" defer></script>
+<div class="container">
+    <h1>Cadastro de Itens</h1>
+    <div id="form">
+        <div class="form-floating mb-3">
+            <select name="tipoItem" id="tipoItem" class="form-control">
+                <option value="0" disabled selected>Selecione...</option>
+                <option value="1">Produto</option>
+                <option value="2">Insumo</option>
+                <option value="3">Serviços</option>
+                <option value="4">Equipamento Agricola</option>
+                <option value="5">Marca</option>
+            </select>
+            <label for="tipoItem">Tipo de Item</label>
+        </div>
+        <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomeval" placeholder=" " maxlength="50">
+            <label for="nome">Nome:</label>
+        </div>
+        <div class="form-floating mb-3" id="preco">
+            <input type="number" class="form-control" id="precoval" placeholder=" ">
+            <label for="preco">Preço:</label>
+        </div>
+        <div class="form-floating mb-3" id="descricao">
+            <input type="text" class="form-control" id="descricaoval" placeholder=" " maxlength="100">
+            <label for="descricao">Descrição:</label>
+        </div>
+        <div class="form-floating mb-3" id="marca">
+            <select name="marca" id="marcaval" class="form-control">
+                <option value="0" selected>...</option>
+                <% for(let i=0; i<listaMarcas.length ; i++) {%>
+                    <option value="<%=listaMarcas[i].id%>"><%=listaMarcas[i].nome%></option>
+                    <%}%>
+            </select>
+            <label for="tipoItem">Marca</label>
+        </div>
+
+        <button class="btn btn-primary" id="cadastrar">Cadastrar Item</button>
+        <a href="/admin/listagem" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>

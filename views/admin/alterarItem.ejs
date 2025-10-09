@@ -1,0 +1,42 @@
+<script src="/js/js/alterarItem.js" defer></script>
+<div class="container">
+    <h1>Alterar Item</h1>
+    <div id="form">
+        <div class="form-floating mb-3">
+            <select name="tipoItem" id="tipoItem" class="form-control">
+                <option value="0" disabled >Selecione...</option>
+                <option value="1" <% if(tipo == 1){%>selected<%}%> disabled>Produto</option>
+                <option value="2" <% if(tipo == 2){%>selected<%}%> disabled>Insumo</option>
+                <option value="3" <% if(tipo == 3){%>selected<%}%> disabled>Serviços</option>
+                <option value="4" <% if(tipo == 4){%>selected<%}%> disabled>Equipamento Agricola</option>
+                <option value="5" <% if(tipo == 5){%>selected<%}%> disabled>Marca</option>
+            </select>
+            <label for="tipoItem">Tipo de Item</label>
+        </div>
+        <input type="hidden" value="<%=prod.id%>" id="prodId">
+        <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomeval" placeholder="name" value="<%=prod.nome%>" maxlength="50">
+            <label for="nome">Nome:</label>
+        </div>
+        <div class="form-floating mb-3" id="preco">
+            <input type="number" class="form-control" id="precoval" placeholder="name" value="<%=prod.preco%>">
+            <label for="preco">Preço:</label>
+        </div>
+        <div class="form-floating mb-3" id="descricao">
+            <input type="text" class="form-control" id="descricaoval" placeholder="name" value="<%=prod.descricao%>" maxlength="100">
+            <label for="descricao">Descrição:</label>
+        </div>
+        <div class="form-floating mb-3" id="marca">
+            <select name="marca" id="marcaval" class="form-control">
+                <option value="0" selected>...</option>
+                <% for(let i=0; i<listaMarcas.length ; i++) {%>
+                    <option value="<%=listaMarcas[i].id%>" <% if(listaMarcas[i].id == prod.marca){%>selected<%}%>> <%=listaMarcas[i].nome%></option>
+                    <%}%>
+            </select>
+            <label for="tipoItem">Marca</label>
+        </div>
+
+        <button class="btn btn-primary" id="cadastrar">Confirmar Alteração</button>
+        <a href="/admin/listagem" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>

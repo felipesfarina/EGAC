@@ -1,0 +1,39 @@
+
+    .erro {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    .float-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .float-container label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      background: white;
+      padding: 0 4px;
+      color: #999;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all 0.2s ease-out;
+    }
+
+    .float-container input:focus + label,
+    .float-container input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 0.8rem;
+      color: #323232;
+    }
+
+    .float-container input {
+      padding: 12px 12px 12px 12px;
+      font-size: 1rem;
+    }
+
+    .form-control::placeholder {
+      color: transparent;
+    }
