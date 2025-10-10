@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function(){
         else
             listas[2].style.display = 'none';
         
+        if(select.value == 6)
+            listas[3].style.display = 'table';
+        else
+            listas[3].style.display = 'none';
+        
         let linha = document.querySelectorAll('[data-tipoLinha]')           // ESCONDE LINHAS QUE NAO SAO DO TIPO ESCOLHIDO NO SELECT PRODUTOS
         for(let i=0;i<linha.length;i++){
             console.log(linha[i].classList.contains("tipo"+select.value))
@@ -47,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(tipo == 3){aux = 'do Serviço'}
         if(tipo == 4){aux = 'do Equipamento Agrícola'}
         if(tipo == 5){aux = 'da Marca'}
+        if(tipo == 6){aux = 'da Categoria'}
 
         let msg = 'Confirma a excluisão '+aux+': '+nome+'?';
         if(confirm(msg)) {

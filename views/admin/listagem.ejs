@@ -10,6 +10,7 @@
             <option value="3">Serviços</option>
             <option value="4">Equipamentos Agricolas</option>
             <option value="5">Marcas</option>
+            <option value="6">Categorias</option>
         </select>
         <label for="select">Tipo de Item</label>
     </div>
@@ -85,6 +86,28 @@
                     <td>
                         <a href="/admin/alterarItem/5/<%=listaMarcas[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         <button data-id="<%=listaMarcas[i].id%>" data-tipo="5"  data-nome='<%=listaMarcas[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>
+            <%}%>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered mt-3" style="color: #000;" id="6">
+        <thead>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Equipamentos</th>
+            <th>Alterar/Excluir</th>
+        </thead>
+        <tbody>
+            <%for(let i=0;i<listaCategorias.length;i++) {%>
+                <tr>
+                    <td><%=listaCategorias[i].id%></td>
+                    <td><%=listaCategorias[i].nome%></td>
+                    <td></td>
+                    <td>
+                        <a href="/admin/alterarItem/5/<%=listaCategorias[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        <button data-id="<%=listaCategorias[i].id%>" data-tipo="6"  data-nome='<%=listaCategorias[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
                     </td>
                 </tr>
             <%}%>

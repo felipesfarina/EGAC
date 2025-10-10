@@ -10,11 +10,12 @@
                 <option value="3">Serviços</option>
                 <option value="4">Equipamento Agricola</option>
                 <option value="5">Marca</option>
+                <option value="6">Categoria</option>
             </select>
             <label for="tipoItem">Tipo de Item</label>
         </div>
         <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nomeval" placeholder=" " maxlength="50">
+            <input type="text" class="form-control" id="nomeval" placeholder=" " maxlength="50">
             <label for="nome">Nome:</label>
         </div>
         <div class="form-floating mb-3" id="preco">
@@ -27,14 +28,22 @@
         </div>
         <div class="form-floating mb-3" id="marca">
             <select name="marca" id="marcaval" class="form-control">
-                <option value="0" selected>...</option>
-                <% for(let i=0; i<listaMarcas.length ; i++) {%>
-                    <option value="<%=listaMarcas[i].id%>"><%=listaMarcas[i].nome%></option>
-                    <%}%>
+            <option value="0" selected>...</option>
+            <% for(let i=0; i<listaMarcas.length ; i++) {%>
+                <option value="<%=listaMarcas[i].id%>"><%=listaMarcas[i].nome%></option>
+                <%}%>
             </select>
-            <label for="tipoItem">Marca</label>
+            <label for="tipoItem">Marca:</label>
         </div>
-
+        <div class="form-floating mb-3" id="categoria">
+            <select name="categoria" id="categoriaval" class="form-control">
+                <option value="0" selected>...</option>
+                <% for(let i=0; i<listaCategorias.length ; i++) {%>
+                    <option value="<%=listaCategorias[i].id%>"><%=listaCategorias[i].nome%></option>
+                    <%}%>
+                </select>
+                <label for="categoria">Categoria:</label>
+        </div>
         <button class="btn btn-primary" id="cadastrar">Cadastrar Item</button>
         <a href="/admin/listagem" class="btn btn-secondary">Voltar</a>
     </div>

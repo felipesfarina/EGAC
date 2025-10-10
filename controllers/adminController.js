@@ -1,4 +1,5 @@
 const marcaModel = require('../models/marcaModel');
+const categoriaModel = require('../models/categoriaModel');
 const produtoModel = require('../models/produtoModel');
 const equipAgricolaModel = require ('../models/equipAgricolaModel');
 
@@ -20,6 +21,10 @@ class adminController {
         let listaMarcas = [];
         let marca = new marcaModel();
         listaMarcas = await marca.listar();
+        
+        let listaCategorias = [];
+        let categoria = new categoriaModel();
+        listaCategorias = await categoria.listar();
 
         let listaProdutos = [];
         let produto = new produtoModel();
@@ -29,14 +34,19 @@ class adminController {
         let eqag = new equipAgricolaModel();
         listaEqAg = await eqag.listar();
 
-        res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos, listaEqAg: listaEqAg});
+        res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos, listaEqAg: listaEqAg, listaCategorias: listaCategorias});
     }
     async cadastrarView(req,res){
 
         let listaMarcas = [];
         let marca = new marcaModel();
         listaMarcas = await marca.listar();
-        res.render('admin/cadastrarItem',{listaMarcas: listaMarcas});
+
+        let listaCategorias = [];
+        let categoria = new categoriaModel();
+        listaCategorias = await categoria.listar();
+
+        res.render('admin/cadastrarItem',{listaMarcas: listaMarcas, listaCategorias: listaCategorias});
     }
     async alterarView(req,res){
 
@@ -93,6 +103,15 @@ class adminController {
                 res.send({ok: true , msg: 'Marca Excluida com Sucesso!'});
             else
                 res.send({ok: false, msg: 'Falha na Exclusão do Marca!'});
+        }
+        
+        if(tipo == 6){
+            prod = new categoriaModel();
+            let result = await prod.excluir(id);
+            if(result)
+                res.send({ok: true , msg: 'Categoria Excluida com Sucesso!'});
+            else
+                res.send({ok: false, msg: 'Falha na Exclusão do Categoria!'});
         }
     }
 }
