@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', function(){
             vetorVal.push(categoria);
         else
             categoria.style.borderColor = '';
-
+        console.log(vetorVal)
         if(tipoItem.value == 1 || tipoItem.value == 2){ // PRODUTO INSUMO
-            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value && categoria.value){
+            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value && categoria.value && preco.value >= 0){
                 obj = {
                     id: id.value,
                     tipoItem : tipoItem.value,
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
         if(tipoItem.value == 3){ // SERVICO
-            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value != 0){
+            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value != 0 && preco.value >= 0){
                 obj = {
                     id: id.value,
                     tipoItem : tipoItem.value,
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
         if(tipoItem.value == 4){ //EQUIPAMENTO AGRICOLA
-            if(nome.value && isFinite(Number(preco.value)) && preco.value && marca.value != 0){
+            if(nome.value && isFinite(Number(preco.value)) && preco.value && marca.value != 0 && preco.value >= 0){
                 obj = {
                     id: id.value,
                     tipoItem : tipoItem.value,
@@ -214,9 +214,12 @@ document.addEventListener('DOMContentLoaded', function(){
                 return
             }
         }
-        alert('Favor Preencher os Campos Obrigatórios!');
-        for(let i=0; i<vetorVal.length; i++){
-            vetorVal[i].style.borderColor = 'red';
+    
+        else{
+            alert('Favor Preencher os Campos Obrigatórios!');
+            for(let i=0; i<vetorVal.length; i++){
+                vetorVal[i].style.borderColor = 'red';
+            }
         }
     }
 })

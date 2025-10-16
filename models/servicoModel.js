@@ -1,6 +1,6 @@
 const Database = require("../utils/database");
 
-class servico{
+class ServicoModel{
     #id;
     #nome;
     #preco;
@@ -38,7 +38,7 @@ class servico{
         
         let lista = [];
         for(let i=0; i<rows.length;i++){
-            lista.push(new servico(rows[i]['serv_id'], rows[i]['serv_nome'], rows[i]['serv_preco'], rows[i]['serv_descricao']));
+            lista.push(new ServicoModel(rows[i]['serv_id'], rows[i]['serv_nome'], rows[i]['serv_preco'], rows[i]['serv_descricao']));
         }
 
         return lista;
@@ -50,7 +50,7 @@ class servico{
         const banco = new Database();
         
         const row = await banco.ExecutaComando(sql,valores);
-        let servico = new servico(row['0']['serv_id'], row['0']['serv_nome'], row['0']['serv_preco'], row['0']['serv_descricao']);
+        let servico = new ServicoModel(row['0']['serv_id'], row['0']['serv_nome'], row['0']['serv_preco'], row['0']['serv_descricao']);
         return servico;
     }
 
@@ -73,4 +73,4 @@ class servico{
     }
 }
 
-module.exports = servico;
+module.exports = ServicoModel;

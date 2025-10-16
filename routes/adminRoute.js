@@ -21,7 +21,7 @@ router.get('/adminCadastro', adminController.cadastroView);
 router.get('/listagem', adminController.listarView);
 
                 // CADASTRAR ITENS
-router.get('/cadastrarProd', produtosController.cadastrarView);
+router.get('/cadastrarProduto', produtosController.cadastrarView);
 router.get('/cadastrarServico', servicoController.cadastrarView);
 router.get('/cadastrarEqAgricola', equipAgricolaController.cadastrarView);
 router.get('/cadastrarMarca', marcaController.cadastrarView);
@@ -36,6 +36,7 @@ router.post('/cadastrarCategoria', categoriaController.cadastrar);
                 // ALTERAR ITENS
 router.post('/alterarProduto', produtosController.alterar);
 router.post('/alterarMarca', marcaController.alterar);
+router.post('/alterarServico', servicoController.alterar);
 router.post('/alterarCategoria', categoriaController.alterar);
 router.post('/alterarEquipAgricola', equipAgricolaController.alterar);
 

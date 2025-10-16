@@ -46,11 +46,14 @@ class adminController {
         let tipo = req.params.tipo;
 
         let prod;
-        if(tipo == 1 || tipo == 2 || tipo == 3 ){
+        if(tipo == 1 || tipo == 2){
             prod = new produtoModel();
             prod = await prod.buscarId(id)
         }
-
+        if(tipo == 3){
+            prod = new ServicoModel();
+            prod = await prod.buscarId(id)
+        }
         if(tipo == 4){
             prod = new equipAgricolaModel();
             prod = await prod.buscarId(id)

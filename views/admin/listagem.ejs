@@ -23,7 +23,7 @@
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Alterar/Excluir</th>
-            <th><a href="/admin/CadastrarProd">Cadastrar novo</a></th>
+            <th><a href="/admin/CadastrarProduto">Cadastrar novo</a></th>
         </thead>
         <tbody>
             <%for(let i=0;i<listaProdutos.length;i++) {%>
@@ -52,7 +52,7 @@
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Alterar/Excluir</th>
-            <th><a href="/admin/CadastrarProd">Cadastrar novo</a></th>
+            <th><a href="/admin/CadastrarProduto">Cadastrar novo</a></th>
         </thead>
         <tbody>
             <%for(let i=0;i<listaInsumos.length;i++) {%>
@@ -133,7 +133,6 @@
         <thead>
             <th>ID</th>
             <th>Nome</th>
-            <th>Equipamentos</th>
             <th>Alterar/Excluir</th>
             <th><a href="/admin/CadastrarMarca">Cadastrar novo</a></th>
         </thead>
@@ -142,7 +141,6 @@
                 <tr>
                     <td><%=listaMarcas[i].id%></td>
                     <td><%=listaMarcas[i].nome%></td>
-                    <td></td>
                     <td>
                         <a href="/admin/alterarItem/5/<%=listaMarcas[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         <button data-id="<%=listaMarcas[i].id%>" data-tipo="5"  data-nome='<%=listaMarcas[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
@@ -156,7 +154,6 @@
         <thead>
             <th>ID</th>
             <th>Nome</th>
-            <th>Equipamentos</th>
             <th>Alterar/Excluir</th>
             <th><a href="/admin/CadastrarCategoria">Cadastrar novo</a></th>
         </thead>
@@ -165,7 +162,6 @@
                 <tr>
                     <td><%=listaCategorias[i].id%></td>
                     <td><%=listaCategorias[i].nome%></td>
-                    <td></td>
                     <td>
                         <a href="/admin/alterarItem/6/<%=listaCategorias[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         <button data-id="<%=listaCategorias[i].id%>" data-tipo="6"  data-nome='<%=listaCategorias[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
