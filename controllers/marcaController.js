@@ -8,6 +8,9 @@ class marcaController{
     // TIPO 4 = MARCA
     // TIPO 5 = SERVIÇO
 
+    async cadastrarView(req,res){
+        res.render('admin/cadastrarMarca');
+    }
     async cadastrar(req,res){
         const nome = req.body.nome;
 

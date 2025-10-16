@@ -1,4 +1,5 @@
 const equipAgricolaModel = require ('../models/equipAgricolaModel');
+const marcaModel = require ('../models/marcaModel');
 class equipAgricolasController{
 
     // TIPO 1 = PRODUTO
@@ -7,8 +8,14 @@ class equipAgricolasController{
     // TIPO 4 = MARCA
     // TIPO 5 = SERVIÇO
 
+    async cadastrarView(req,res){
+        let listaMarcas = [];
+        let marca = new marcaModel();
+        listaMarcas = await marca.listar();
+
+        res.render('admin/cadastrarEqAgricola',{listaMarcas: listaMarcas});
+    }
     async cadastrar(req,res){
-        const tipoItem = req.body.tipoItem;
         const nome = req.body.nome;
         const preco = req.body.preco;
         const marca = req.body.marca;

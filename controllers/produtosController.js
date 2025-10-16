@@ -7,6 +7,13 @@ class produtosController{
     // TIPO 4 = EQUIPAMENTO AGRICOLA
     // TIPO 5 = MARCA
 
+    async cadastrarView(req,res){
+        let listaCategorias = [];
+        let categoria = new categoriaModel();
+        listaCategorias = await categoria.listar();
+
+        res.render('admin/cadastrarProd',{listaCategorias: listaCategorias});
+    }
     async cadastrar(req,res){
         const tipoItem = req.body.tipoItem;
         const nome = req.body.nome;

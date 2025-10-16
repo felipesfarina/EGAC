@@ -55,6 +55,31 @@ class produtoModel{
 
         return lista;
     }
+    
+    async listarProd(){
+        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id where prod_tipo = 1';
+        const banco = new Database();
+        const rows = await banco.ExecutaComando(sql);
+        
+        let lista = [];
+        for(let i=0; i<rows.length;i++){
+            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome']));
+        }
+
+        return lista;
+    }
+    async listarInsumo(){
+        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id where prod_tipo = 2';
+        const banco = new Database();
+        const rows = await banco.ExecutaComando(sql);
+        
+        let lista = [];
+        for(let i=0; i<rows.length;i++){
+            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome']));
+        }
+
+        return lista;
+    }
 
     async buscarId(id){
         const sql ='select * from tb_Produto where prod_id = ?';

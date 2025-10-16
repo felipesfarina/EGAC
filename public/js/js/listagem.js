@@ -6,33 +6,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function change(){    
         let listas = document.querySelectorAll('table');            // SELECIONA A TABELA A EXIBIR
-        if(select.value == 1 || select.value == 2 || select.value == 3)
-            listas[0].style.display = 'table';
-        else
-            listas[0].style.display = 'none';
-
-        if(select.value == 4)
-            listas[1].style.display = 'table';
-        else
-            listas[1].style.display = 'none';
-
-        if(select.value == 5)
-            listas[2].style.display = 'table';
-        else
-            listas[2].style.display = 'none';
-        
-        if(select.value == 6)
-            listas[3].style.display = 'table';
-        else
-            listas[3].style.display = 'none';
-        
-        let linha = document.querySelectorAll('[data-tipoLinha]')           // ESCONDE LINHAS QUE NAO SAO DO TIPO ESCOLHIDO NO SELECT PRODUTOS
-        for(let i=0;i<linha.length;i++){
-            console.log(linha[i].classList.contains("tipo"+select.value))
-            if( linha[i].classList.contains("tipo"+select.value))
-                linha[i].style.display = 'table-row';
+        for(let i=0; i< listas.length; i++){
+            if(listas[i].id == select.value)
+                listas[i].style.display = 'table';
             else
-                linha[i].style.display = 'none';
+                listas[i].style.display = 'none';
         }
     }
 

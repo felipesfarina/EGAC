@@ -2,6 +2,7 @@ const marcaModel = require('../models/marcaModel');
 const categoriaModel = require('../models/categoriaModel');
 const produtoModel = require('../models/produtoModel');
 const equipAgricolaModel = require ('../models/equipAgricolaModel');
+const ServicoModel = require ('../models/servicoModel');
 
 class adminController {
 
@@ -24,26 +25,20 @@ class adminController {
         listaCategorias = await categoria.listar();
 
         let listaProdutos = [];
+        let listaInsumos = [];
         let produto = new produtoModel();
-        listaProdutos = await produto.listar();
+        listaProdutos = await produto.listarProd();
+        listaInsumos = await produto.listarInsumo();
 
         let listaEqAg = [];
         let eqag = new equipAgricolaModel();
         listaEqAg = await eqag.listar();
+        
+        let listaServicos = [];
+        let Servicos = new ServicoModel();
+        listaServicos = await Servicos.listar();
 
-        res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos, listaEqAg: listaEqAg, listaCategorias: listaCategorias});
-    }
-    async cadastrarView(req,res){
-
-        let listaMarcas = [];
-        let marca = new marcaModel();
-        listaMarcas = await marca.listar();
-
-        let listaCategorias = [];
-        let categoria = new categoriaModel();
-        listaCategorias = await categoria.listar();
-
-        res.render('admin/cadastrarItem',{listaMarcas: listaMarcas, listaCategorias: listaCategorias});
+        res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos,listaInsumos: listaInsumos, listaEqAg: listaEqAg, listaCategorias: listaCategorias, listaServicos: listaServicos});
     }
     async alterarView(req,res){
 
@@ -86,13 +81,21 @@ class adminController {
         let id = req.body.obj.id;
 
         let prod;
-        if(tipo == 1 || tipo == 2 || tipo == 3){
+        if(tipo == 1 || tipo == 2){
             prod = new produtoModel();
             let result = await prod.excluir(id);
             if(result)
                 res.send({ok: true , msg: 'Produto Excluido com Sucesso!'});
             else
                 res.send({ok: false, msg: 'Falha na Exclusão do Produto!'});
+        }
+        if(tipo == 3){
+            prod = new ServicoModel();
+            let result = await prod.excluir(id);
+            if(result)
+                res.send({ok: true , msg: 'Serviço Excluido com Sucesso!'});
+            else
+                res.send({ok: false, msg: 'Falha na Exclusão do Serviço!'});
         }
         if(tipo == 4){
             prod = new equipAgricolaModel();
