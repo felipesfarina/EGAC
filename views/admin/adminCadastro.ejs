@@ -5,14 +5,29 @@
       <form id="formulario-login" class="bg-white p-5 shadow rounded" style="max-width: 400px; width: 100%;" novalidate>
         <h3 class="mb-4 text-center">Cadastro de Funcionários</h3><br><br>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <div class="float-container">
             <input type="text" id="login-nome" name="nome" class="form-control" placeholder=" " required>
-            <label for="login-nome">Nome completo</label>
+            <label for="login-nome">Nome completo:</label>
           </div>
           <p id="erro-nome" class="erro"></p>
         </div>
 
+        <div class="form-group">
+          <div class="float-container">
+            <input type="text" id="login-cpf" name="cpf" class="form-control" placeholder=" " required>
+            <label for="login-cpf">CPF:</label>
+          </div>
+          <p id="erro-cpf" class="erro"></p>
+        </div>
+
+        <div class="form-group">
+          <div class="float-container">
+            <input type="text" id="login-telefone" name="telefone" class="form-control" placeholder=" " required>
+            <label for="login-telefone">Telefone:</label>
+          </div>
+          <p id="erro-telefone" class="erro"></p>
+        </div>
 
         <div class="form-group">
           <div class="float-container">
@@ -22,24 +37,58 @@
           <p id="erro-email" class="erro"></p>
         </div>
 
-
         <div class="form-group">
           <div class="float-container">
             <input type="password" id="login-senha" name="senha" class="form-control" placeholder=" " required>
-            <label for="login-senha">Senha</label>
+            <label for="login-senha">Senha:</label>
           </div>
           <p id="erro-senha" class="erro"></p>
         </div>
 
         <div class="form-group">
           <div class="float-container">
-            <input type="password" id="login-confirmar" name="confirmar" class="form-control" placeholder=" " required>
+            <input type="password" id="login-senha2" name="confirmar" class="form-control" placeholder=" " required>
 
-            <label for="login-confirmar">Confirmar Senha</label>
+            <label for="login-confirmar">Confirmar Senha:</label>
           </div>
-          <p id="erro-confirmar" class="erro"></p>
+          <p id="erro-senha2" class="erro"></p>
+        </div> -->
+
+        <div class="form-floating mb-3">
+            <input type="text" id="login-nome" name="nome" class="form-control" placeholder=" " required>
+            <label for="login-nome">Nome completo:</label>
+          <p id="erro-nome" class="erro"></p>
         </div>
 
+        <div class="form-floating mb-3">
+            <input type="text" id="login-cpf" name="cpf" class="form-control" placeholder=" " required>
+            <label for="login-cpf">CPF:</label>
+          <p id="erro-cpf" class="erro"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" id="login-telefone" name="telefone" class="form-control" placeholder=" " required>
+            <label for="login-telefone">Telefone:</label>
+          <p id="erro-telefone" class="erro"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" id="login-email" name="email" class="form-control" placeholder=" " required>
+            <label for="login-email">E-mail</label>
+          <p id="erro-email" class="erro"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" id="login-senha" name="senha" class="form-control" placeholder=" " required>
+            <label for="login-senha">Senha:</label>
+          <p id="erro-senha" class="erro"></p>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" id="login-senha2" name="confirmar" class="form-control" placeholder=" " required>
+            <label for="login-confirmar">Confirmar Senha:</label>
+          <p id="erro-senha2" class="erro"></p>
+        </div>
 
         <div class="text-center mt-4">
           <button id="btn-login" type="submit">Cadastrar</button>
@@ -54,21 +103,3 @@
         </div>
       </form>
     </div>
-
-    <!-- <div class="container mt-5">
-      <h4 class="mb-3">Usuários Cadastrados</h4>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th><input type="checkbox" id="ckTodos"></th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody id="tb-body">
-          
-        </tbody>
-      </table>
-      <button class="btn btn-danger" id="btnExcluirSelecionados">Excluir Selecionados</button>
-    </div>* -->
