@@ -22,23 +22,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
         let btn = this;
         let id = this.dataset.id;
-        let tipo = this.dataset.tipo;
         let nome = this.dataset.nome;
-        let aux;
-        if(tipo == 1){aux = 'do Produto'}
-        if(tipo == 2){aux = 'do Insumo'}
-        if(tipo == 3){aux = 'do Serviço'}
-        if(tipo == 4){aux = 'do Equipamento Agrícola'}
-        if(tipo == 5){aux = 'da Marca'}
-        if(tipo == 6){aux = 'da Categoria'}
 
-        let msg = 'Confirma a excluisão '+aux+': '+nome+'?';
+        let msg = 'Confirma a exclusão do Cliente: '+nome+'?';
         if(confirm(msg)) {
             let obj = {
-                tipo: tipo,
                 id: id
             }
-            fetch("/admin/excluir", {
+            fetch("/admin/excluirCliente", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

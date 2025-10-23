@@ -3,21 +3,13 @@ const Database = require('../utils/database');
 
 class PFisicaModel extends pessoaModel{
     #cpf;
-    #email;
-    #senha;
 
     set cpf(valor){ this.#cpf = valor}
     get cpf(){return this.#cpf}
-    set email(valor){ this.#email = valor}
-    get email(){return this.#email}
-    set senha(valor){ this.#senha = valor}
-    get senha(){return this.#senha}
 
-    constructor(id,nome, telefone, tipo, cpf, email, senha){
-        super(id,nome,telefone,tipo);
+    constructor(id,nome, telefone, tipo, email, senha, cpf){
+        super(id,nome,telefone,tipo,email,senha);
         this.#cpf = cpf;
-        this.#email = email;
-        this.#senha = senha;
     }
 
     async cadastrar(){
@@ -26,15 +18,15 @@ class PFisicaModel extends pessoaModel{
         let sql = 'start transaction;'
         await banco.ExecutaComandoNonQuery(sql);
 
-        sql = 'insert into tb_Pessoa(pessoa_nome, pessoa_telefone, pessoa_tipo) values(?,?,?);'
-        let valores = [this.nome, this.telefone, this.tipo];
+        sql = 'insert into tb_Pessoa(pessoa_nome, pessoa_telefone, pessoa_tipo, pessoa_email, pessoa_senha) values(?,?,?,?,?);'
+        let valores = [this.nome, this.telefone, this.tipo, this.email, this.senha];
         await banco.ExecutaComandoNonQuery(sql,valores);
 
         sql = 'set @last_id = last_insert_id();'
         await banco.ExecutaComandoNonQuery(sql);
 
-        sql = 'insert into tb_PFisica(PF_id, PF_cpf, PF_email, PF_senha) values(@last_id,?,?,?);'
-        valores = [this.cpf,this.email, this.senha];
+        sql = 'insert into tb_PFisica(PF_id, PF_cpf) values(@last_id,?);'
+        valores = [this.cpf];
         let result = await banco.ExecutaComandoNonQuery(sql,valores);
 
         sql = 'commit;'
@@ -50,9 +42,57 @@ class PFisicaModel extends pessoaModel{
 
         let lista = [];
         for(let i=0;i<rows.length;i++){
-            lista.push(new PFisicaModel(rows[i]['PF_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['PF_cpf'],rows[i]['PF_email'],rows[i]['PF_senha']));
+            lista.push(new PFisicaModel(rows[i]['PF_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PF_cpf']));
         }
         return lista;
+    }
+    async procurarCpf(){
+        let sql = 'select PF_id from tb_PFisica where PF_cpf = ?;';
+        let valores = [this.#cpf];
+        const banco = new Database();
+        let result = await banco.ExecutaComando(sql,valores);
+
+        // let pf = new PFisicaModel(result['0']['PF_id']);
+        if(result.length>0){
+            let id = result['0']['PF_id'];
+            return id;
+        }
+        else
+            return false;
+    }
+    // async procurarEmail(){
+    //     let sql = 'select PF_id from tb_PFisica where PF_email = ?;';
+    //     let valores = [this.email];
+    //     const banco = new Database();
+    //     let result = await banco.ExecutaComando(sql,valores);
+
+    //     // let pf = new PFisicaModel(result['0']['PF_email']);
+    //     if(result.length > 0){
+    //         let id = result['0']['PF_id'];
+    //         return id;
+    //     }
+    //     else
+    //         return false;
+    // }
+    async buscarId(){
+        let sql = 'select * from tb_PFisica pf inner join tb_Pessoa p on pf.PF_id = p.pessoa_id where pf.PF_id = ?;'
+        let valores = [this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComando(sql,valores);
+
+        let pessoa = new PFisicaModel(result['0']['PF_id'],result['0']['pessoa_nome'],result['0']['pessoa_telefone'],result['0']['pessoa_tipo'], result['0']['pessoa_email'],result['0']['pessoa_senha'], result['0']['PF_cpf']);
+
+        return pessoa;
+    }
+
+    async alterar(){
+        let sql = 'update tb_PFisica pf, tb_Pessoa p set p.pessoa_nome = ?, p.pessoa_telefone = ?, p.pessoa_tipo = ?,  p.pessoa_email= ?, p.pessoa_senha = ?, pf.PF_cpf = ? where p.pessoa_id = ? and pf.PF_id = ?;';
+
+        let valores = [this.nome,this.telefone,this.tipo,this.email,this.senha,this.cpf,this.id,this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComandoNonQuery(sql,valores);
+
+        return result;
     }
 }
 module.exports = PFisicaModel;

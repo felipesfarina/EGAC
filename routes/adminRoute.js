@@ -27,10 +27,17 @@ router.get("/", adminController.homeView);
                 // Clientes
 router.get('/clientes', adminController.clientesView)
 router.get('/PFCadastro', adminController.PFCadastroView)
-// router.get('/PJCadastro', adminController.PJCadastroView)
-// router.get('/FuncionarioCadastro', adminController.FuncionarioCadastroView)
+router.get('/PJCadastro', adminController.PJCadastroView)
+router.get('/FuncionarioCadastro', adminController.FuncionarioCadastroView)
 
 router.post('/PFCadastro', pfController.cadastrar);
+router.post('/PJCadastro', pjController.cadastrar);
+router.post('/FuncionarioCadastro', funcController.cadastrar);
+router.post('/excluirCliente', adminController.excluirCliente)
+router.post('/alterarPF', pfController.alterar);
+router.post('/alterarPJ', pjController.alterar);
+// router.post('/alterarFuncionario', funcController.alterar);
+
                 // CADASTRAR ITENS
 router.get('/cadastrarProduto', produtosController.cadastrarView);
 router.get('/cadastrarServico', servicoController.cadastrarView);
@@ -58,4 +65,5 @@ router.post('/excluir', adminController.excluirItem);
 router.get('/listagem/:tipo', adminController.listarItemView);
 
 router.get('/alterarItem/:tipo/:id', adminController.alterarItemView);
+router.get('/alterarCliente/:tipo/:id', adminController.alterarClienteView);
 module.exports = router;

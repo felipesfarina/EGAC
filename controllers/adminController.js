@@ -7,6 +7,7 @@ const ServicoModel = require ('../models/servicoModel');
 const PFModel = require('../models/pfisicaModel');
 const PJModel = require('../models/pjuridicaModel');
 const FuncionarioModel = require('../models/funcionarioModel');
+const pessoaModel = require('../models/pessoaModel');
 
 class adminController {
 
@@ -156,6 +157,43 @@ class adminController {
     }
     FuncionarioCadastroView(req,res){
         res.render('admin/FuncionarioCadastro',{layout: 'layout2'});
+    }
+
+    async excluirCliente(req,res){
+        let ok;
+        let msg; 
+        let id = req.body.obj.id;
+        let pessoa = new pessoaModel(id);
+        let result = await pessoa.excluir();
+        if(result){
+            ok = true;
+            msg = 'Exclusão concluída com Sucesso!';
+        }
+        else{
+            ok = false;
+            msg = 'Falha na Exclusão do Cliente!';
+        }
+        res.send({ok,msg});
+    }
+
+    async alterarClienteView(req,res){
+        let id = req.params.id;
+        let tipo = req.params.tipo;
+
+        let cliente;
+        if(tipo == 1){
+            cliente = new PFModel(id);
+            cliente = await cliente.buscarId();
+        }
+        if(tipo == 2){
+            cliente = new PJModel(id);
+            cliente = await cliente.buscarId();
+        }
+        if(tipo == 3){
+            cliente = new FuncionarioModel(id);
+            cliente = await cliente.buscarId();
+        }
+        res.render('admin/alterarCliente', {layout: 'layout2', cliente: cliente});
     }
 }
 

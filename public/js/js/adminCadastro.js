@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const email = document.getElementById('login-email');
   const senha = document.getElementById('login-senha');
   const senha2 = document.getElementById('login-senha2');
+
   const erroNome = document.getElementById('erro-nome');
   const erroCpf = document.getElementById('erro-cpf');
   const erroTelefone = document.getElementById('erro-telefone');
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function(){
         telefone: telefone.value,
         email: email.value,
         senha: senha.value,
-        tipo: 1
+        tipo: 3
       }
       fetch('/adminLogin/Cadastrar',{
         method: 'POST',

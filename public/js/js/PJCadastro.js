@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
     const nome = document.getElementById('nomeval');
     const telefone = document.getElementById('telefoneval');
-    const cpf = document.getElementById('cpfval');
+    const cnpj = document.getElementById('cnpjval');
     const email = document.getElementById('emailval');
     const senha = document.getElementById('senhaval');
     const senha2 = document.getElementById('senha2val');
 
     // Mensagens de Erro
     const erroNome = document.getElementById('erro-nome');
-    const erroCpf = document.getElementById('erro-cpf');
+    const erroCnpj = document.getElementById('erro-cnpj');
     const erroTelefone = document.getElementById('erro-telefone');
     const erroEmail = document.getElementById('erro-email');
     const erroSenha = document.getElementById('erro-senha');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         // Limpa mensagens anteriores
         erroNome.textContent = '';
-        erroCpf.textContent = '';
+        erroCnpj.textContent = '';
         erroTelefone.textContent = '';
         erroEmail.textContent = '';
         erroSenha.textContent = '';
@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', function(){
             erroNome.textContent = 'Por favor insira o nome completo.';
             valido = false;
         }
-        // Validação CPF
-        if(!cpf.value){
-            erroCpf.textContent = 'O campo de CPF é obrigatório.';
+        // Validação CNPJ
+        if(!cnpj.value){
+            erroCnpj.textContent = 'O campo de CNPJ é obrigatório.';
             valido = false;
-        }else if(!validaCPF(cpf.value)){
-            erroCpf.textContent = 'Por favor insira um CPF válido.';
+        }else if(!validaCNPJ(cnpj.value)){
+            erroCnpj.textContent = 'Por favor insira um CNPJ válido.';
             valido = false;
         }
 
@@ -85,11 +85,11 @@ document.addEventListener('DOMContentLoaded', function(){
             obj = {
                 nome: nome.value,
                 telefone: telefone.value,
-                cpf: cpf.value,
+                cnpj: cnpj.value,
                 email: email.value,
                 senha: senha.value
             }
-            fetch('/admin/PFCadastro',{
+            fetch('/admin/PJCadastro',{
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function(){
     nome.addEventListener('keydown', function() {
         erroNome.textContent = '';
     });
-    cpf.addEventListener('keydown', function() {
-        erroCpf.textContent = '';
+    cnpj.addEventListener('keydown', function() {
+        erroCnpj.textContent = '';
     });
     telefone.addEventListener('keydown', function() {
         erroTelefone.textContent = '';
@@ -140,51 +140,22 @@ document.addEventListener('DOMContentLoaded', function(){
         erroSenha.textContent = '';
     });
 
-    function validaCPF(cpf) {
-        var Soma = 0
-        var Resto
-
-        var strCPF = String(cpf).replace(/[^\d]/g, '')
+    function validaCNPJ (cnpj) {
+        var b = [ 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 ]
+        var c = String(cnpj).replace(/[^\d]/g, '')
         
-        if (strCPF.length !== 11)
-            return false
-        
-        if ([
-            '00000000000',
-            '11111111111',
-            '22222222222',
-            '33333333333',
-            '44444444444',
-            '55555555555',
-            '66666666666',
-            '77777777777',
-            '88888888888',
-            '99999999999',
-            ].indexOf(strCPF) !== -1)
+        if(c.length !== 14)
             return false
 
-        for (i=1; i<=9; i++)
-            Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
-
-        Resto = (Soma * 10) % 11
-
-        if ((Resto == 10) || (Resto == 11)) 
-            Resto = 0
-
-        if (Resto != parseInt(strCPF.substring(9, 10)) )
+        if(/0{14}/.test(c))
             return false
 
-        Soma = 0
+        for (var i = 0, n = 0; i < 12; n += c[i] * b[++i]);
+        if(c[12] != (((n %= 11) < 2) ? 0 : 11 - n))
+            return false
 
-        for (i = 1; i <= 10; i++)
-            Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i)
-
-        Resto = (Soma * 10) % 11
-
-        if ((Resto == 10) || (Resto == 11)) 
-            Resto = 0
-
-        if (Resto != parseInt(strCPF.substring(10, 11) ) )
+        for (var i = 0, n = 0; i <= 12; n += c[i] * b[i++]);
+        if(c[13] != (((n %= 11) < 2) ? 0 : 11 - n))
             return false
 
         return true

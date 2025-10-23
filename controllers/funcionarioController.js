@@ -7,19 +7,40 @@ class funcionarioController{
         const telefone = req.body.telefone;
         const email = req.body.email;
         const senha = req.body.senha;
+        const cargo = req.body.cargo;
         const tipo = 3;
 
-        let funcionario = new funcionarioModel(null, nome, telefone, tipo, cpf, email, senha, 'admin');
-        let result = await funcionario.cadastrar();
-        if(result){ res.send({ok: true, msg: 'Funcionário Cadastrado com Sucesso!'})}
-        else{res.send({ok: false, msg:'Erro a cadastrar Funcionário!'})};
+        let func = new funcionarioModel(null, nome, telefone, tipo, email, senha, cpf, cargo);
+
+        let ok = true;
+        let msg;
+        if(await func.procurarCpf()){
+            ok = false;
+            msg = 'Já existe um Usuário com este CPF!';
+        }
+        if(ok && await func.procurarEmail()){
+            ok = false;
+            msg = 'Já existe um Usuário com este Email!';
+        }
+        if(ok){
+            let result = await func.cadastrar();
+    
+            if(result){
+                ok = true;
+                msg = 'Funcionário cadastrado com Sucesso!';
+            }else{
+                ok = false;
+                msg = 'Erro ao cadastrar Funcionário!';
+            }
+        }
+        res.send({ok, msg})
     }
 
     async logar(req,res){
         const email = req.body.email;
         const senha = req.body.senha;
 
-        let func = new funcionarioModel(null,null,null,null,null,email,senha,null);
+        let func = new funcionarioModel(null,null,null,null,email,senha,null,null);
         func = await func.logar();
         if(func){
             res.cookie('FuncionarioEmail', func.email);

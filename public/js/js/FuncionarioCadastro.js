@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const nome = document.getElementById('nomeval');
     const telefone = document.getElementById('telefoneval');
     const cpf = document.getElementById('cpfval');
+    const cargo = document.getElementById('cargoval');
     const email = document.getElementById('emailval');
     const senha = document.getElementById('senhaval');
     const senha2 = document.getElementById('senha2val');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // Mensagens de Erro
     const erroNome = document.getElementById('erro-nome');
     const erroCpf = document.getElementById('erro-cpf');
+    const erroCargo = document.getElementById('erro-cargo');
     const erroTelefone = document.getElementById('erro-telefone');
     const erroEmail = document.getElementById('erro-email');
     const erroSenha = document.getElementById('erro-senha');
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
         // Limpa mensagens anteriores
         erroNome.textContent = '';
         erroCpf.textContent = '';
+        erroCargo.textContent = '';
         erroTelefone.textContent = '';
         erroEmail.textContent = '';
         erroSenha.textContent = '';
@@ -49,7 +52,10 @@ document.addEventListener('DOMContentLoaded', function(){
             erroCpf.textContent = 'Por favor insira um CPF válido.';
             valido = false;
         }
-
+        if(!cargo.value){
+            erroCargo.textContent = 'O campo de Cargo é obrigatório.';
+            valido = false;
+        }
         // Validação Telefone
         if(!telefone.value){
             erroTelefone.textContent = 'O campo de telefone é obrigatório.';
@@ -87,9 +93,10 @@ document.addEventListener('DOMContentLoaded', function(){
                 telefone: telefone.value,
                 cpf: cpf.value,
                 email: email.value,
-                senha: senha.value
+                senha: senha.value,
+                cargo: cargo.value
             }
-            fetch('/admin/PFCadastro',{
+            fetch('/admin/FuncionarioCadastro',{
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -129,6 +136,9 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     cpf.addEventListener('keydown', function() {
         erroCpf.textContent = '';
+    });
+    cargo.addEventListener('keydown', function() {
+        erroCargo.textContent = '';
     });
     telefone.addEventListener('keydown', function() {
         erroTelefone.textContent = '';

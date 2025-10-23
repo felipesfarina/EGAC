@@ -3,21 +3,13 @@ const pessoaModel = require("./pessoaModel");
 
 class PJModel extends pessoaModel{
     #cnpj;
-    #email;
-    #senha;
 
     set cnpj(value){this.#cnpj = value};
     get cnpj(){return this.#cnpj};
-    set email(value){this.#email = value};
-    get email(){return this.#email};
-    set senha(value){this.#senha = value};
-    get senha(){return this.#senha};
 
-    constructor(id, nome, telefone, tipo, cnpj, email, senha){
-        super(id, nome, telefone, tipo)
+    constructor(id, nome, telefone, tipo, email, senha, cnpj){
+        super(id, nome, telefone, tipo, email, senha)
         this.#cnpj = cnpj;
-        this.#email = email;
-        this.#senha = senha; 
     }
 
     async cadastrar(){
@@ -26,21 +18,20 @@ class PJModel extends pessoaModel{
         let sql = 'start transaction;'
         await banco.ExecutaComandoNonQuery(sql);
 
-        sql = 'insert into tb_Pessoa(pessoa_nome, pessoa_telefone, pessoa_tipo) values(?,?,?);'
-        let valores = [this.nome, this.telefone, this.tipo];
+        sql = 'insert into tb_Pessoa(pessoa_nome, pessoa_telefone, pessoa_tipo, pessoa_email, pessoa_senha) values(?,?,?,?,?);'
+        let valores = [this.nome, this.telefone, this.tipo, this.email, this.senha];
         await banco.ExecutaComandoNonQuery(sql,valores);
 
         sql = 'set @last_id = last_insert_id();'
         await banco.ExecutaComandoNonQuery(sql);
 
-        sql = 'insert into tb_PJuridica(PJ_id, PJ_cnpj, PJ_email, PJ_senha) values(@last_id,?,?,?);'
-        valores = [this.cnpj,this.email, this.senha];
+        sql = 'insert into tb_PJuridica(PJ_id, PJ_cnpj) values(@last_id,?);'
+        valores = [this.cnpj];
         let result = await banco.ExecutaComandoNonQuery(sql,valores);
 
         sql = 'commit;'
         await banco.ExecutaComandoNonQuery(sql);
-        
-        console.log(result);
+
         return result;
     }
 
@@ -51,9 +42,58 @@ class PJModel extends pessoaModel{
 
         let lista = [];
         for(let i=0;i<rows.length;i++){
-            lista.push(new PJModel(rows[i]['PJ_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['PJ_cnpj'],rows[i]['PJ_email'],rows[i]['PJ_senha']));
+            lista.push(new PJModel(rows[i]['PJ_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PJ_cnpj']));
         }
         return lista;
+    }
+
+    async procurarCnpj(){
+        let sql = 'select PJ_id from tb_PJuridica where PJ_cnpj = ?;';
+        let valores = [this.#cnpj];
+        const banco = new Database();
+        let result = await banco.ExecutaComando(sql,valores);
+
+        // let PJ = new PJisicaModel(result['0']['PJ_id']);
+        if(result.length>0){
+            let id = result['0']['PJ_id'];
+            return id;
+        }
+        else
+            return false;
+    }
+    // async procurarEmail(){
+    //     let sql = 'select PJ_id from tb_PJuridica where PJ_email = ?;';
+    //     let valores = [this.#email];
+    //     const banco = new Database();
+    //     let result = await banco.ExecutaComando(sql,valores);
+
+    //     // let PJ = new PJisicaModel(result['0']['PJ_email']);
+    //     if(result.length > 0){
+    //         let id = result['0']['PJ_id'];
+    //         return id;
+    //     }
+    //     else
+    //         return false;
+    // }
+
+    async buscarId(){
+        let sql = 'select * from tb_PJuridica pj inner join tb_Pessoa p on pj.PJ_id = p.pessoa_id where pj.PJ_id = ?;'
+        let valores = [this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComando(sql,valores);
+
+        let pessoa = new PJModel(result['0']['PJ_id'],result['0']['pessoa_nome'],result['0']['pessoa_telefone'],result['0']['pessoa_tipo'], result['0']['pessoa_email'],result['0']['pessoa_senha'], result['0']['PJ_cnpj']);
+
+        return pessoa;
+    }
+    async alterar(){
+        let sql = 'update tb_PJuridica pj, tb_Pessoa p set p.pessoa_nome = ?, p.pessoa_telefone = ?, p.pessoa_tipo = ?,  p.pessoa_email= ?, p.pessoa_senha = ?, pj.PJ_cnpj = ? where p.pessoa_id = ? and pj.PJ_id = ?;';
+
+        let valores = [this.nome,this.telefone,this.tipo,this.email,this.senha,this.cnpj,this.id,this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComandoNonQuery(sql,valores);
+
+        return result;
     }
 }
 
