@@ -36,7 +36,36 @@ class FuncionarioModel extends pfisicaModel{
 
         return result
     }
+    async buscarId(){
+        let sql = 'select * from tb_Funcionario f inner join tb_PFisica pf on f.func_id = pf.PF_id inner join tb_Pessoa p on pf.PF_id = p.pessoa_id where f.func_id = ?;'
+        let valores = [this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComando(sql,valores);
 
+        let pessoa = new FuncionarioModel(result['0']['PF_id'],result['0']['pessoa_nome'],result['0']['pessoa_telefone'],result['0']['pessoa_tipo'], result['0']['pessoa_email'],result['0']['pessoa_senha'], result['0']['PF_cpf'], result['0']['func_cargo']);
+
+        return pessoa;
+    }  
+    async listar(){
+        const sql = 'select * from tb_Funcionario f left join tb_PFisica pf on f.func_id = pf.PF_id left join tb_Pessoa p on pf.PF_id = p.pessoa_id;'
+        const banco = new Database();
+        const rows = await banco.ExecutaComando(sql);
+        
+        let lista = [];
+        for(let i=0;i<rows.length;i++){
+            lista.push(new FuncionarioModel(rows[i]['func_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PF_cpf'],rows[i]['func_cargo']));
+        }
+        return lista;
+    }
+    async alterar(){
+        let sql = 'update tb_Funcionario f, tb_PFisica pf, tb_Pessoa p set p.pessoa_nome = ?, p.pessoa_telefone = ?, p.pessoa_tipo = ?,  p.pessoa_email= ?, p.pessoa_senha = ?, pf.PF_cpf = ?, f.func_cargo = ? where p.pessoa_id = ? and pf.PF_id = ? and f.func_id = ?;';
+        
+        let valores = [this.nome,this.telefone,this.tipo,this.email,this.senha,this.cpf,this.cargo,this.id,this.id,this.id];
+        const banco = new Database();
+        let result = await banco.ExecutaComandoNonQuery(sql,valores);
+        
+        return result;
+    }
     async logar(){
         let sql = 'select * from tb_Funcionario f left join tb_PFisica pf on f.func_id = pf.PF_id left join tb_Pessoa p on pf.PF_id = p.pessoa_id where p.pessoa_email = ? and p.pessoa_senha = ?';
         let valores = [this.email, this.senha];
@@ -48,18 +77,6 @@ class FuncionarioModel extends pfisicaModel{
         }
         else
             return null
-    }
-
-    async listar(){
-        const sql = 'select * from tb_Funcionario f left join tb_PFisica pf on f.func_id = pf.PF_id left join tb_Pessoa p on pf.PF_id = p.pessoa_id;'
-        const banco = new Database();
-        const rows = await banco.ExecutaComando(sql);
-
-        let lista = [];
-        for(let i=0;i<rows.length;i++){
-            lista.push(new FuncionarioModel(rows[i]['func_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PF_cpf'],rows[i]['func_cargo']));
-        }
-        return lista;
     }
 }
 module.exports = FuncionarioModel;

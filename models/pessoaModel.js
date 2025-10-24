@@ -38,7 +38,6 @@ class pessoaModel{
         
         return result;
     }
-
     async procurarEmail(){
         let sql = 'select pessoa_id from tb_Pessoa where pessoa_email = ?;';
         let valores = [this.email];

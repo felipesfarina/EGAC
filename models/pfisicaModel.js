@@ -36,7 +36,7 @@ class PFisicaModel extends pessoaModel{
     }
 
     async listar(){
-        const sql = 'select * from tb_PFisica pf left join tb_Pessoa p on pf.PF_id = p.pessoa_id;'
+        const sql = 'select * from tb_PFisica pf left join tb_Pessoa p on pf.PF_id = p.pessoa_id where p.pessoa_tipo = 1;'
         const banco = new Database();
         const rows = await banco.ExecutaComando(sql);
 
@@ -60,20 +60,6 @@ class PFisicaModel extends pessoaModel{
         else
             return false;
     }
-    // async procurarEmail(){
-    //     let sql = 'select PF_id from tb_PFisica where PF_email = ?;';
-    //     let valores = [this.email];
-    //     const banco = new Database();
-    //     let result = await banco.ExecutaComando(sql,valores);
-
-    //     // let pf = new PFisicaModel(result['0']['PF_email']);
-    //     if(result.length > 0){
-    //         let id = result['0']['PF_id'];
-    //         return id;
-    //     }
-    //     else
-    //         return false;
-    // }
     async buscarId(){
         let sql = 'select * from tb_PFisica pf inner join tb_Pessoa p on pf.PF_id = p.pessoa_id where pf.PF_id = ?;'
         let valores = [this.id];
@@ -84,7 +70,6 @@ class PFisicaModel extends pessoaModel{
 
         return pessoa;
     }
-
     async alterar(){
         let sql = 'update tb_PFisica pf, tb_Pessoa p set p.pessoa_nome = ?, p.pessoa_telefone = ?, p.pessoa_tipo = ?,  p.pessoa_email= ?, p.pessoa_senha = ?, pf.PF_cpf = ? where p.pessoa_id = ? and pf.PF_id = ?;';
 

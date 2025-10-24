@@ -6,7 +6,6 @@ class PJModel extends pessoaModel{
 
     set cnpj(value){this.#cnpj = value};
     get cnpj(){return this.#cnpj};
-
     constructor(id, nome, telefone, tipo, email, senha, cnpj){
         super(id, nome, telefone, tipo, email, senha)
         this.#cnpj = cnpj;
@@ -34,7 +33,6 @@ class PJModel extends pessoaModel{
 
         return result;
     }
-
     async listar(){
         const sql = 'select * from tb_PJuridica pj left join tb_Pessoa p on pj.PJ_id = p.pessoa_id;'
         const banco = new Database();
@@ -46,7 +44,6 @@ class PJModel extends pessoaModel{
         }
         return lista;
     }
-
     async procurarCnpj(){
         let sql = 'select PJ_id from tb_PJuridica where PJ_cnpj = ?;';
         let valores = [this.#cnpj];
@@ -61,21 +58,6 @@ class PJModel extends pessoaModel{
         else
             return false;
     }
-    // async procurarEmail(){
-    //     let sql = 'select PJ_id from tb_PJuridica where PJ_email = ?;';
-    //     let valores = [this.#email];
-    //     const banco = new Database();
-    //     let result = await banco.ExecutaComando(sql,valores);
-
-    //     // let PJ = new PJisicaModel(result['0']['PJ_email']);
-    //     if(result.length > 0){
-    //         let id = result['0']['PJ_id'];
-    //         return id;
-    //     }
-    //     else
-    //         return false;
-    // }
-
     async buscarId(){
         let sql = 'select * from tb_PJuridica pj inner join tb_Pessoa p on pj.PJ_id = p.pessoa_id where pj.PJ_id = ?;'
         let valores = [this.id];
