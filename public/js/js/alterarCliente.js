@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const telefone = document.getElementById('telefoneval');
     const cpf = document.getElementById('cpfval');
     const cnpj = document.getElementById('cnpjval');
-    const cargo = document.getElementById('cargoval');
     const email = document.getElementById('emailval');
     const senha = document.getElementById('senhaval');
     const senha2 = document.getElementById('senha2val');
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const erroNome = document.getElementById('erro-nome');
     const erroCpf = document.getElementById('erro-cpf');
     const erroCnpj = document.getElementById('erro-cnpj');
-    const erroCargo = document.getElementById('erro-cargo');
     const erroTelefone = document.getElementById('erro-telefone');
     const erroEmail = document.getElementById('erro-email');
     const erroSenha = document.getElementById('erro-senha');
@@ -49,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function(){
         erroNome.textContent = '';
         erroCpf.textContent = '';
         erroCnpj.textContent = '';
-        erroCargo.textContent = '';
         erroTelefone.textContent = '';
         erroEmail.textContent = '';
         erroSenha.textContent = '';
@@ -79,12 +76,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 valido = false;
             }else if(!validaCNPJ(cnpj.value)){
                 erroCnpj.textContent = 'Por favor insira um CNPJ válido.';
-                valido = false;
-            }
-        }
-        if(tipo.value == 3){
-            if(!cargo.value){
-                erroCargo.textContent = 'O campo de Cargo é obrigatório.';
                 valido = false;
             }
         }
@@ -195,44 +186,44 @@ document.addEventListener('DOMContentLoaded', function(){
                         // senha.value='';
                     })
             }
-            if(tipo.value == 3){
-                obj = {
-                    id: id.value,
-                    nome: nome.value,
-                    telefone: telefone.value,
-                    cpf: cpf.value,
-                    email: email.value,
-                    senha: senha.value,
-                    cargo: cargo.value
-                }
-                fetch('/admin/alterarFuncionario',{
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify(obj)
-                    })
-                    .then(function(resposta) {//recebe a resposta como retorno do fetch
-                        return resposta.json(); //converte o corpo da resposta para json (gera uma nova promise)
-                    })
-                    .then(function(corpo) {//recebe o corpo em formato de obj genérico
-                        let msgfinal = document.getElementById('msg-final');
-                        if(corpo.ok){
-                            msgfinal.textContent = corpo.msg;
-                            msgfinal.classList = 'text-success';
-                        }
-                        else{
-                            msgfinal.textContent = corpo.msg;
-                            msgfinal.classList = 'text-danger';
-                        }
+            // if(tipo.value == 3){
+            //     obj = {
+            //         id: id.value,
+            //         nome: nome.value,
+            //         telefone: telefone.value,
+            //         cpf: cpf.value,
+            //         email: email.value,
+            //         senha: senha.value,
+            //         cargo: cargo.value
+            //     }
+            //     fetch('/admin/alterarFuncionario',{
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-type': 'application/json'
+            //         },
+            //         body: JSON.stringify(obj)
+            //         })
+            //         .then(function(resposta) {//recebe a resposta como retorno do fetch
+            //             return resposta.json(); //converte o corpo da resposta para json (gera uma nova promise)
+            //         })
+            //         .then(function(corpo) {//recebe o corpo em formato de obj genérico
+            //             let msgfinal = document.getElementById('msg-final');
+            //             if(corpo.ok){
+            //                 msgfinal.textContent = corpo.msg;
+            //                 msgfinal.classList = 'text-success';
+            //             }
+            //             else{
+            //                 msgfinal.textContent = corpo.msg;
+            //                 msgfinal.classList = 'text-danger';
+            //             }
 
-                        // nome.value='';
-                        // telefone.value='';
-                        // cpf.value='';
-                        // email.value='';
-                        // senha.value='';
-                    })
-            }
+            //             // nome.value='';
+            //             // telefone.value='';
+            //             // cpf.value='';
+            //             // email.value='';
+            //             // senha.value='';
+            //         })
+            // }
         }
         else{
             let msgfinal = document.getElementById('msg-final');
@@ -249,9 +240,6 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     cnpj.addEventListener('keydown', function() {
         erroCnpj.textContent = '';
-    });
-    cargo.addEventListener('keydown', function() {
-        erroCargo.textContent = '';
     });
     telefone.addEventListener('keydown', function() {
         erroTelefone.textContent = '';

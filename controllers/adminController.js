@@ -142,12 +142,7 @@ class adminController {
         let pj = new PJModel();
         listaPJ = await pj.listar();
         
-        let listaFunc = [];
-        let func = new FuncionarioModel();
-        listaFunc = await func.listar();
-
-        
-        res.render('admin/adminClientes',{layout: 'layout2', listaPF: listaPF, listaPJ: listaPJ, listaFunc: listaFunc});
+        res.render('admin/adminClientes',{layout: 'layout2', listaPF: listaPF, listaPJ: listaPJ});
     }
     PFCadastroView(req,res){
         res.render('admin/PFCadastro',{layout: 'layout2'});
@@ -187,10 +182,6 @@ class adminController {
         }
         if(tipo == 2){
             cliente = new PJModel(id);
-            cliente = await cliente.buscarId();
-        }
-        if(tipo == 3){
-            cliente = new FuncionarioModel(id);
             cliente = await cliente.buscarId();
         }
         res.render('admin/alterarCliente', {layout: 'layout2', cliente: cliente});

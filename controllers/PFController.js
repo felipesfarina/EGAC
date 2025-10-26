@@ -13,7 +13,7 @@ class PFController{
 
         let ok = true;
         let msg;
-        let PF = new PFisicaModel(null,nome,telefone,1,email,senha,cpf,isFunc); //ANTES DE CADASTRAR DEVE VERIFICAR EMAIL E CPF 
+        let PF = new PFisicaModel(null,nome,telefone,email,senha,cpf,isFunc); //ANTES DE CADASTRAR DEVE VERIFICAR EMAIL E CPF 
         if(await PF.procurarCpf()){
             ok = false;
             msg = 'Já existe um Usuário com este CPF!';
@@ -46,8 +46,9 @@ class PFController{
         const cpf = req.body.cpf;
         const email = req.body.email;
         const senha = req.body.senha;
+        const isFunc = req.body.isFunc;
 
-        let pessoa = new PFisicaModel(id,nome,telefone,email,senha,cpf);
+        let pessoa = new PFisicaModel(id,nome,telefone,email,senha,cpf,isFunc);
         // varificação email cpf
         if(await pessoa.procurarCpf() && await pessoa.procurarCpf() != id){ // verifica se ja existe esse cpf cadastrado más deixa passar 
             ok = false;                                                     // caso seja da pessoa alterando agora
@@ -71,51 +72,31 @@ class PFController{
         res.send({ok,msg});
     }
 
-    // async cadastrarFuncionario(req,res){
-    //     const nome = req.body.nome;
-    //     const telefone = req.body.telefone;
-    //     const cpf = req.body.cpf;
-    //     const email = req.body.email;
-    //     const senha = req.body.senha;
-
-    //     let ok = true;
-    //     let msg;
-    //     let PF = new PFisicaModel(null,nome,telefone,1,email,senha,cpf); //ANTES DE CADASTRAR DEVE VERIFICAR EMAIL E CPF 
-    //     if(await PF.procurarCpf()){
-    //         ok = false;
-    //         msg = 'Já existe um Usuário com este CPF!';
-    //     }
-    //     if(ok && await PF.procurarEmail()){
-    //         ok = false;
-    //         msg = 'Já existe um Usuário com este Email!';
-    //     }
-    //     if(ok){
-    //         let result = await PF.cadastrar();
-    
-    //         if(result){
-    //             ok = true;
-    //             msg = 'Pessoa Física cadastrada com Sucesso!';
-    //         }else{
-    //             ok = false;
-    //             msg = 'Erro ao cadastrar Pessoa Física!';
-    //         }
-    //     }
-    //     res.send({ok, msg})
-    // }
-
     async logarFuncionario(req,res){
         const email = req.body.email;
         const senha = req.body.senha;
 
-        let func = new PFisicaModel(null,null,null,null,email,senha,null);
-        func = await func.logar();
-        if(func){
+        let ok;
+        let msg;
+
+        let func = new PFisicaModel(null,null,null,email,senha,null,null);
+        func = await func.logarEmailSenha();
+        if(func && func.isFunc){
             res.cookie('FuncionarioEmail', func.email);
             res.cookie('FuncionarioSenha', func.senha);
-            res.send({ok: true})
+            ok = true;
+            msg = 'Login Concluído com Sucesso!';
             // res.redirect('/');
         }
-        else{res.send({ok: false})};
+        if(func && !func.isFunc){
+            ok = false;
+            msg = 'Usuário sem acesso de Funcionário!';
+        }
+        if(func == null){
+            ok = false;
+            msg = 'Credenciais Incorretas!';
+        }
+        res.send({ok, msg});
     }
 }
 module.exports = PFController;

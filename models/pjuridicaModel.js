@@ -6,8 +6,8 @@ class PJModel extends pessoaModel{
 
     set cnpj(value){this.#cnpj = value};
     get cnpj(){return this.#cnpj};
-    constructor(id, nome, telefone, tipo, email, senha, cnpj){
-        super(id, nome, telefone, tipo, email, senha)
+    constructor(id, nome, telefone, email, senha, cnpj){
+        super(id, nome, telefone, 2, email, senha)
         this.#cnpj = cnpj;
     }
 
@@ -40,7 +40,7 @@ class PJModel extends pessoaModel{
 
         let lista = [];
         for(let i=0;i<rows.length;i++){
-            lista.push(new PJModel(rows[i]['PJ_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_tipo'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PJ_cnpj']));
+            lista.push(new PJModel(rows[i]['PJ_id'],rows[i]['pessoa_nome'],rows[i]['pessoa_telefone'],rows[i]['pessoa_email'],rows[i]['pessoa_senha'],rows[i]['PJ_cnpj']));
         }
         return lista;
     }
@@ -64,7 +64,7 @@ class PJModel extends pessoaModel{
         const banco = new Database();
         let result = await banco.ExecutaComando(sql,valores);
 
-        let pessoa = new PJModel(result['0']['PJ_id'],result['0']['pessoa_nome'],result['0']['pessoa_telefone'],result['0']['pessoa_tipo'], result['0']['pessoa_email'],result['0']['pessoa_senha'], result['0']['PJ_cnpj']);
+        let pessoa = new PJModel(result['0']['PJ_id'],result['0']['pessoa_nome'],result['0']['pessoa_telefone'], result['0']['pessoa_email'],result['0']['pessoa_senha'], result['0']['PJ_cnpj']);
 
         return pessoa;
     }

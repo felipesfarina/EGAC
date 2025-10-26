@@ -8,7 +8,7 @@ const EquipAgricolaController = require('../controllers/equipAgricolaController'
 
 const PFController = require("../controllers/PFController");
 const PJController = require("../controllers/PJController");
-const funcionarioController = require("../controllers/funcionarioController");
+//const funcionarioController = require("../controllers/funcionarioController"); EXCLUIR
 const router = express.Router();
 
 const adminController = new AdminController();
@@ -20,7 +20,7 @@ const equipAgricolaController = new EquipAgricolaController();
 
 const pfController = new PFController();
 const pjController = new PJController();
-const funcController = new funcionarioController();
+//const funcController = new funcionarioController(); EXCLUIR
 
 router.get("/", adminController.homeView);
 
@@ -32,11 +32,11 @@ router.get('/FuncionarioCadastro', adminController.FuncionarioCadastroView)
 
 router.post('/PFCadastro', pfController.cadastrar);
 router.post('/PJCadastro', pjController.cadastrar);
-router.post('/FuncionarioCadastro', funcController.cadastrar);
+router.post('/FuncionarioCadastro', pfController.cadastrar);
 router.post('/excluirCliente', adminController.excluirCliente)
 router.post('/alterarPF', pfController.alterar);
 router.post('/alterarPJ', pjController.alterar);
-router.post('/alterarFuncionario', funcController.alterar);
+//router.post('/alterarFuncionario', funcController.alterar);
 
                 // CADASTRAR ITENS
 router.get('/cadastrarProduto', produtosController.cadastrarView);

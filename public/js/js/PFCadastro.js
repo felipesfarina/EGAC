@@ -87,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 telefone: telefone.value,
                 cpf: cpf.value,
                 email: email.value,
-                senha: senha.value
+                senha: senha.value,
+                isFunc: 0
             }
             fetch('/admin/PFCadastro',{
                 method: 'POST',

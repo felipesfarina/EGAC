@@ -6,7 +6,7 @@ const PFController = require('../controllers/PFController');
 
 
 const adminController = new AdminController();
-const funcionarioController = new FuncionarioController();
+//const funcionarioController = new FuncionarioController();
 const pfController = new PFController();
 
 router.get('/', adminController.loginView);
@@ -14,6 +14,6 @@ router.get('/Cadastro', adminController.cadastroView);
 
             //adminLogin
 router.post('/', pfController.logarFuncionario);
-router.post('/Cadastrar', pfController.cadastrarFuncionario);
+router.post('/Cadastrar', pfController.cadastrar);
 
 module.exports = router;

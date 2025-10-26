@@ -50,13 +50,15 @@
             return resposta.json(); //converte o corpo da resposta para json (gera uma nova promise)
         })
         .then(function(corpo) {//recebe o corpo em formato de obj genérico
+          let msgfinal = document.getElementById('mensagem-final');
             if(corpo.ok){
               //redireciona para admin
-              window.location.replace('http://localhost:5550/admin')
+              window.location.replace('http://localhost:5550/admin');
             }
-            else{
-              let msgErro = document.getElementById('mensagem-erro');
-              msgErro.style.display = 'block'
+            if(!corpo.ok){
+              msgfinal.textContent = corpo.msg;
+              msgfinal.style.display = 'block';
+              msgfinal.classList = 'text-danger';
             }
       })
     }

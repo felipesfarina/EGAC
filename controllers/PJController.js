@@ -11,7 +11,7 @@ class PJController{
 
         let ok = true;
         let msg;
-        let PJ = new PJModel(null,nome,telefone,2,email,senha,cnpj); //ANTES DE CADASTRAR DEVE VERIFICAR EMAIL E CNPJ 
+        let PJ = new PJModel(null,nome,telefone,email,senha,cnpj); //ANTES DE CADASTRAR DEVE VERIFICAR EMAIL E CNPJ 
         if(await PJ.procurarCnpj()){
             ok = false;
             msg = 'Já existe um Usuário com este CNPJ!';
@@ -45,7 +45,7 @@ class PJController{
         const email = req.body.email;
         const senha = req.body.senha;
 
-        let pessoa = new PJModel(id,nome,telefone,2,email,senha,cnpj);
+        let pessoa = new PJModel(id,nome,telefone,email,senha,cnpj);
         // varificação email cnpj
         if(await pessoa.procurarCnpj() && await pessoa.procurarCnpj() != id){ // verifica se ja existe esse cnpj cadastrado más deixa passar 
             ok = false;                                                     // caso seja da pessoa alterando agora

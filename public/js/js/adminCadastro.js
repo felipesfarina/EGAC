@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function(){
   const formulario = document.getElementById('formulario-login');
   const nome = document.getElementById('login-nome');
   const cpf = document.getElementById('login-cpf');
-  const cargo = document.getElementById('login-cargo');
   const telefone = document.getElementById('login-telefone');
   const email = document.getElementById('login-email');
   const senha = document.getElementById('login-senha');
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const erroNome = document.getElementById('erro-nome');
   const erroCpf = document.getElementById('erro-cpf');
-  const erroCargo = document.getElementById('erro-cargo');
   const erroTelefone = document.getElementById('erro-telefone');
   const erroEmail = document.getElementById('erro-email');
   const erroSenha = document.getElementById('erro-senha');
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function(){
     // Limpa mensagens anteriores
     erroNome.textContent = '';
     erroCpf.textContent = '';
-    erroCargo.textContent = '';
     erroTelefone.textContent = '';
     erroEmail.textContent = '';
     erroSenha.textContent = '';
@@ -45,10 +42,6 @@ document.addEventListener('DOMContentLoaded', function(){
       valido = false;
     }else if(!validaCPF(cpf.value)){
       erroCpf.textContent = 'Por favor insira um CPF válido.';
-      valido = false;
-    }
-    if(!cargo.value){
-      erroCargo.textContent = 'O campo de Ccrgo é obrigatório.';
       valido = false;
     }
 
@@ -89,10 +82,10 @@ document.addEventListener('DOMContentLoaded', function(){
       let obj = {
         nome: nome.value,
         cpf: cpf.value,
-        cargo: cargo.value,
         telefone: telefone.value,
         email: email.value,
-        senha: senha.value
+        senha: senha.value,
+        isFunc: 1
       }
       fetch('/adminLogin/Cadastrar',{
         method: 'POST',
@@ -125,9 +118,6 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   cpf.addEventListener('keydown', function() {
     erroCpf.textContent = '';
-  });
-  cargo.addEventListener('keydown', function() {
-    erroCargo.textContent = '';
   });
   telefone.addEventListener('keydown', function() {
     erroTelefone.textContent = '';
