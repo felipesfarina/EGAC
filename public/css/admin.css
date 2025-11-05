@@ -1,0 +1,11 @@
+/* minimalista */
+body.admin-layout { background:#f6f7fb; }
+.admin-topbar { z-index: 1000; }
+.admin-sidebar { width: 220px; background: #fff; border-right: 1px solid #e6e6e6; }
+.admin-main { background: transparent; }
+.admin-layout .admin-sidebar .nav-link { color: #333; }
+.admin-layout .admin-sidebar .nav-link.active { background: #f1f5f9; font-weight:600; }
+
+/* flexbox layout */
+body.admin-layout { display: flex; min-height: 100vh; }
+.admin-sidebar { position: sticky; top: 56px; height: calc(100vh - 56px); overflow:auto; }

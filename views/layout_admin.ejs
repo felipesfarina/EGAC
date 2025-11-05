@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EGAC - Painel Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/admin.css">
+  </head>
+  <body class="admin-layout d-flex flex-column">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom w-100 admin-topbar">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/admin">EGAC</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav" aria-controls="adminNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="adminNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="/admin">Meu Negócio</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="cadastrosMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
+              <ul class="dropdown-menu" aria-labelledby="cadastrosMenu">
+                <li><a class="dropdown-item" href="/admin/cadastrarProduto">Produtos</a></li>
+                <li><a class="dropdown-item" href="/admin/cadastrarMarca">Marcas</a></li>
+                <li><a class="dropdown-item" href="/admin/cadastrarCategoria">Categorias</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/admin/listagem/1">Vendas</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/listagem/1">Estoque</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/financeiro">Financeiro</a></li>
+          </ul>
+
+          <form class="d-flex me-3" role="search" action="/admin/listagem/1" method="get">
+            <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="Pesquisar" aria-label="Pesquisar">
+            <button class="btn btn-sm btn-outline-secondary" type="submit">Buscar</button>
+          </form>
+
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> Admin
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                <li><a class="dropdown-item" href="/admin/perfil">Perfil</a></li>
+                <li><a class="dropdown-item" href="/usuario/logout">Sair</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="d-flex flex-fill">
+      <div class="admin-sidebar bg-white border-end">
+        <div class="d-flex flex-column p-3 h-100">
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item"><a href="/admin" class="nav-link">Dashboard</a></li>
+            <li class="nav-item"><a href="/admin/clientes" class="nav-link">Clientes</a></li>
+            <li class="nav-item"><a href="/admin/listagem/1" class="nav-link">Produtos</a></li>
+            <li class="nav-item"><a href="/admin/marcas" class="nav-link">Marcas</a></li>
+            <li class="nav-item"><a href="/admin/cadastrarCategoria" class="nav-link">Categorias</a></li>
+            <li class="nav-item"><a href="/admin/servicos" class="nav-link">Serviços</a></li>
+            <li class="nav-item"><a href="/admin/financeiro" class="nav-link">Financeiro</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <main class="admin-main flex-fill p-4">
+        <div class="container-fluid">
+          <%- body %>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

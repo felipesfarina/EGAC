@@ -12,13 +12,13 @@ const pessoaModel = require('../models/pessoaModel');
 class adminController {
 
     homeView(req, res) {
-        res.render('admin/adminHome',{layout: 'layout2'});
+        res.render('admin/adminHome',{layout: 'layout_admin'});
     }
     loginView(req, res) {
-        res.render('admin/adminLogin',{layout: 'layout2'});
+        res.render('admin/adminLogin',{layout: 'layout_admin'});
     }
     cadastroView(req, res) {
-        res.render('admin/adminCadastro',{layout: 'layout2'});
+        res.render('admin/adminCadastro',{layout: 'layout_admin'});
     }
     async listarItemView(req,res){
         let tipoListar = req.params.tipo;
@@ -45,7 +45,7 @@ class adminController {
         let Servicos = new ServicoModel();
         listaServicos = await Servicos.listar();
 
-        res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos,listaInsumos: listaInsumos, listaEqAg: listaEqAg, listaCategorias: listaCategorias, listaServicos: listaServicos,tipoListar: tipoListar, layout: 'layout2'});
+    res.render('admin/listagem',{listaMarcas: listaMarcas, listaProdutos: listaProdutos,listaInsumos: listaInsumos, listaEqAg: listaEqAg, listaCategorias: listaCategorias, listaServicos: listaServicos,tipoListar: tipoListar, layout: 'layout_admin'});
     }
     async alterarItemView(req,res){
 
@@ -83,7 +83,7 @@ class adminController {
         let listaCategorias = [];
         let categoria = new categoriaModel();
         listaCategorias = await categoria.listar();
-        res.render('admin/alterarItem', {prod: prod, tipo: tipo,listaMarcas: listaMarcas, listaCategorias: listaCategorias, layout: 'layout2'});
+    res.render('admin/alterarItem', {prod: prod, tipo: tipo,listaMarcas: listaMarcas, listaCategorias: listaCategorias, layout: 'layout_admin'});
     }
     async excluirItem(req,res){
         let tipo = req.body.obj.tipo;
@@ -142,16 +142,16 @@ class adminController {
         let pj = new PJModel();
         listaPJ = await pj.listar();
         
-        res.render('admin/adminClientes',{layout: 'layout2', listaPF: listaPF, listaPJ: listaPJ});
+        res.render('admin/adminClientes',{layout: 'layout_admin', listaPF: listaPF, listaPJ: listaPJ});
     }
     PFCadastroView(req,res){
-        res.render('admin/PFCadastro',{layout: 'layout2'});
+        res.render('admin/PFCadastro',{layout: 'layout_admin'});
     }
     PJCadastroView(req,res){
-        res.render('admin/PJCadastro',{layout: 'layout2'});
+        res.render('admin/PJCadastro',{layout: 'layout_admin'});
     }
     FuncionarioCadastroView(req,res){
-        res.render('admin/FuncionarioCadastro',{layout: 'layout2'});
+        res.render('admin/FuncionarioCadastro',{layout: 'layout_admin'});
     }
 
     async excluirCliente(req,res){
@@ -184,7 +184,7 @@ class adminController {
             cliente = new PJModel(id);
             cliente = await cliente.buscarId();
         }
-        res.render('admin/alterarCliente', {layout: 'layout2', cliente: cliente});
+    res.render('admin/alterarCliente', {layout: 'layout_admin', cliente: cliente});
     }
 }
 
