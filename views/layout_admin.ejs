@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EGAC - Painel Admin</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/admin.css">
@@ -14,6 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom w-100 admin-topbar">
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="/admin">EGAC</a>
+        <span class="navbar-divider"></span>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNav" aria-controls="adminNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -21,17 +25,86 @@
 
         <div class="collapse navbar-collapse" id="adminNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="/admin">Meu Negócio</a></li>
-            <li class="nav-item dropdown">
+            <li class="nav-item"><a class="nav-link" href="/admin">Painel</a></li>
+            
+            <li class="nav-item dropdown dropdown-mega">
               <a class="nav-link dropdown-toggle" href="#" id="cadastrosMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
-              <ul class="dropdown-menu" aria-labelledby="cadastrosMenu">
-                <li><a class="dropdown-item" href="/admin/cadastrarProduto">Produtos</a></li>
-                <li><a class="dropdown-item" href="/admin/cadastrarMarca">Marcas</a></li>
-                <li><a class="dropdown-item" href="/admin/cadastrarCategoria">Categorias</a></li>
+              <ul class="dropdown-menu dropdown-menu-large" aria-labelledby="cadastrosMenu">
+                <li>
+                  <div class="row p-3">
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Cadastros</h6>
+                      <a class="dropdown-item" href="/admin/listagem/1">Produtos</a>
+                      <a class="dropdown-item" href="/admin/clientes">Clientes e fornecedores</a>
+                      <a class="dropdown-item" href="/admin/FuncionarioCadastro">Funcionários</a>
+                      <a class="dropdown-item" href="/admin/listagem/5">Marcas</a>
+                    </div>
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Ferramentas</h6>
+                      <a class="dropdown-item" href="/admin/listagem/6">Categorias de produtos</a>
+                      <a class="dropdown-item" href="/admin/listagem/3">Serviços</a>
+                      <a class="dropdown-item" href="/admin/listagem/4">Equipamentos Agrícolas</a>
+                    </div>
+                  </div>
+                </li>
               </ul>
             </li>
-            <li class="nav-item"><a class="nav-link" href="/admin/listagem/1">Vendas</a></li>
-            <li class="nav-item"><a class="nav-link" href="/admin/listagem/1">Estoque</a></li>
+
+            <li class="nav-item dropdown dropdown-mega">
+              <a class="nav-link dropdown-toggle" href="#" id="vendasMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Vendas</a>
+              <ul class="dropdown-menu dropdown-menu-large" aria-labelledby="vendasMenu">
+                <li>
+                  <div class="row p-3">
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Gestão</h6>
+                      <a class="dropdown-item" href="/admin/vendas">Pedidos de venda</a>
+                      <a class="dropdown-item" href="/admin/devolucao">Devoluções</a>
+                    </div>
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Serviços</h6>
+                      <a class="dropdown-item" href="/admin/servicos">Ordens de serviço</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown dropdown-mega">
+              <a class="nav-link dropdown-toggle" href="#" id="estoqueMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Estoque</a>
+              <ul class="dropdown-menu dropdown-menu-large" aria-labelledby="estoqueMenu">
+                <li>
+                  <div class="row p-3">
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Compras</h6>
+                      <a class="dropdown-item" href="/admin/compras">Pedidos de compra</a>
+                      <a class="dropdown-item" href="/admin/fornecedores">Fornecedores</a>
+                    </div>
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Estoque</h6>
+                      <a class="dropdown-item" href="/admin/estoque">Lançamentos de estoque</a>
+                      <a class="dropdown-item" href="/admin/baixaEstoque">Baixa de estoque</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown dropdown-mega">
+              <a class="nav-link dropdown-toggle" href="#" id="financeiroMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Financeiro</a>
+              <ul class="dropdown-menu dropdown-menu-large" aria-labelledby="financeiroMenu">
+                <li>
+                  <div class="row p-3">
+                    <div class="col-md-4">
+                      <h6 class="dropdown-header">Gestão financeira</h6>
+                      <a class="dropdown-item" href="/admin/caixa">Caixas e bancos</a>
+                      <a class="dropdown-item" href="/admin/contasPagar">Contas a pagar</a>
+                      <a class="dropdown-item" href="/admin/contasReceber">Contas a receber</a>
+                      <a class="dropdown-item" href="/admin/controleCaixa">Controle de caixa</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
           </ul>
 
           <form class="d-flex me-3" role="search" action="/admin/listagem/1" method="get">
@@ -54,26 +127,11 @@
       </div>
     </nav>
 
-    <div class="d-flex flex-fill">
-      <div class="admin-sidebar bg-white border-end">
-        <div class="d-flex flex-column p-3 h-100">
-          <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item"><a href="/admin" class="nav-link">Dashboard</a></li>
-            <li class="nav-item"><a href="/admin/clientes" class="nav-link">Clientes</a></li>
-            <li class="nav-item"><a href="/admin/listagem/1" class="nav-link">Produtos</a></li>
-            <li class="nav-item"><a href="/admin/marcas" class="nav-link">Marcas</a></li>
-            <li class="nav-item"><a href="/admin/cadastrarCategoria" class="nav-link">Categorias</a></li>
-            <li class="nav-item"><a href="/admin/servicos" class="nav-link">Serviços</a></li>
-          </ul>
-        </div>
+    <main class="admin-main flex-fill p-4">
+      <div class="container-fluid">
+        <%- body %>
       </div>
-
-      <main class="admin-main flex-fill p-4">
-        <div class="container-fluid">
-          <%- body %>
-        </div>
-      </main>
-    </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/admin.js"></script>

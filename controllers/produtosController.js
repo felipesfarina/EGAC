@@ -13,7 +13,7 @@ class produtosController{
         let categoria = new categoriaModel();
         listaCategorias = await categoria.listar();
 
-        res.render('admin/cadastrarProd',{listaCategorias: listaCategorias, layout: 'layout2'});
+        res.render('admin/cadastrarProd',{listaCategorias: listaCategorias, layout: 'layout_admin'});
     }
     async cadastrar(req,res){
         const tipoItem = req.body.tipoItem;

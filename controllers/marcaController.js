@@ -9,7 +9,7 @@ class marcaController{
     // TIPO 5 = SERVIÇO
 
     async cadastrarView(req,res){
-        res.render('admin/cadastrarMarca',{ layout: 'layout2'});
+        res.render('admin/cadastrarMarca',{ layout: 'layout_admin'});
     }
     async cadastrar(req,res){
         const nome = req.body.nome;
