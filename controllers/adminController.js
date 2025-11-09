@@ -6,7 +6,7 @@ const ServicoModel = require ('../models/servicoModel');
 
 const PFModel = require('../models/pfisicaModel');
 const PJModel = require('../models/pjuridicaModel');
-const FuncionarioModel = require('../models/funcionarioModel');
+//const FuncionarioModel = require('../models/funcionarioModel');
 const pessoaModel = require('../models/pessoaModel');
 
 class adminController {

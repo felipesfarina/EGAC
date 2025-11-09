@@ -1,8 +1,24 @@
 <script src="/js/js/listagem.js" defer></script>
+<script src="/js/js/listagem-header.js" defer></script>
+
 <div class="container-sm">
-    <h1>Listagem de Itens</h1>
-    <a href="/admin" class="btn btn-secondary">Voltar</a>
-    <div class="form-floating mt-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="titleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <span id="titleSelected"><% if(tipoListar == 1){ %>Produtos<% } else if(tipoListar == 2){ %>Insumos<% } else if(tipoListar == 3){ %>Serviços<% } else if(tipoListar == 4){ %>Equipamentos Agricolas<% } else if(tipoListar == 5){ %>Marcas<% } else if(tipoListar == 6){ %>Categorias<% } else { %>Listagem de Itens<% } %></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="titleDropdown">
+                <li><a class="dropdown-item title-option" href="#" data-value="1">Produtos</a></li>
+                <li><a class="dropdown-item title-option" href="#" data-value="2">Insumos</a></li>
+                <li><a class="dropdown-item title-option" href="#" data-value="3">Serviços</a></li>
+                <li><a class="dropdown-item title-option" href="#" data-value="4">Equipamentos Agricolas</a></li>
+                <li><a class="dropdown-item title-option" href="#" data-value="5">Marcas</a></li>
+                <li><a class="dropdown-item title-option" href="#" data-value="6">Categorias</a></li>
+            </ul>
+        </div>
+        <a href="/admin" class="btn btn-secondary">Voltar</a>
+    </div>
+    <div class="form-floating mt-3 d-none">
         <select name="select" id="select" class="form-control">
             <option value="1" <%if(tipoListar == 1){%>selected<%}%>>Produtos</option>
             <option value="2" <%if(tipoListar == 2){%>selected<%}%>>Insumos</option>
@@ -13,6 +29,8 @@
         </select>
         <label for="select">Tipo de Item</label>
     </div>
+
+    
 
     <table class="table table-bordered mt-3" style="color: #000;" id="1"> <!--LISTA PRODUTOS-->
         <thead>
