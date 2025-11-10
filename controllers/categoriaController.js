@@ -32,5 +32,23 @@ class categoriaController{
         else
             res.send({msg: 'Erro ao alterar Categoria!'});
     }
+
+    async excluir(req,res) {
+        const categoria = new categoriaModel(req.body.id,req.body.nome);
+
+        if(await categoria.verificarChild()){
+            console.log('não pode excluir, existem produtos vinculados');
+            res.send({msg: 'Não é possível excluir esta categoria, existem produtos vinculados a ela!'});
+        }
+
+        const result = await categoria.excluir();
+
+        if(result) 
+            res.send({msg: 'Categoria excluída com Sucesso!'});
+        else
+            res.send({msg: 'Erro ao excluir Categoria!'});
+    }
 }
 module.exports = categoriaController;
+
+
