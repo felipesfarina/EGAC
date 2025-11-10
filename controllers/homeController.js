@@ -1,11 +1,15 @@
-
+const CategoriaModel = require('../models/categoriaModel');
 
 class HomeController {
     homeView(req, res) {
         res.render('home/home');
     }
-    shopView(req, res) {
-        res.render('shop/shop');
+
+    // renderiza cm as categorias do bd
+    async shopView(req, res) {
+        let categoriaModel = new CategoriaModel();              
+        let listaCategorias = await categoriaModel.listar();    // busca as categorias cadastrada
+        res.render('shop/shop', {listaCategorias: listaCategorias}); // categoria pra view
     }
     aboutView(req, res) {
         res.render('home/about');

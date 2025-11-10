@@ -12,20 +12,10 @@
 					<div class="row justify-content-center">
 						<div class="col-md-10 mb-5 text-center">
 							<ul class="product-category">
-								<!-- <li><a href="shop.html" class="active">Todos</a></li>
-						<li><a href="shopsuino.html">Suinos</a></li>
-						<li><a href="shopaves.html">Aves</a></li>
-						<li><a href="shopbovino.html">Bovinos</a></li>
-						<li><a href="shopovino.html">Ovinos</a></li>
-						<li><a href="shopequinos.html">Equinos</a></li>
-						<li><a href="shoptecnologia.html" class="text-blue">Tecnologia</a></li> -->
 								<li><button class="btn-filter active" data-filter="todos">Todos</button></li>
-								<li><button class="btn-filter" data-filter="suinos">Suínos</button></li>
-								<li><button class="btn-filter" data-filter="aves">Aves</button></li>
-								<li><button class="btn-filter" data-filter="bovinos">Bovinos</button></li>
-								<li><button class="btn-filter" data-filter="ovinos">Ovinos</button></li>
-								<li><button class="btn-filter" data-filter="equinos">Equinos</button></li>
-								<li><button class="btn-filter" data-filter="tecnologia">Tecnologia</button></li>
+								<%for(let i=0; i<listaCategorias.length; i++) {%>
+									<li><button class="btn-filter" data-filter="<%=listaCategorias[i].nome.toLowerCase()%>"><%=listaCategorias[i].nome%></button></li>
+								<%}%>
 							</ul>
 						</div>
 					</div>
