@@ -1,19 +1,21 @@
 const produtoModel = require ('../models/produtoModel');
 const categoriaModel = require ('../models/categoriaModel');
+const marcaModel = require('../models/marcaModel');
+
 class produtosController{
 
     // TIPO 1 = PRODUTO
     // TIPO 2 = INSUMO
-    // TIPO 3 = SERVIÇO
-    // TIPO 4 = EQUIPAMENTO AGRICOLA
-    // TIPO 5 = MARCA
-
     async cadastrarView(req,res){
         let listaCategorias = [];
         let categoria = new categoriaModel();
         listaCategorias = await categoria.listar();
 
-        res.render('admin/cadastrarProd',{listaCategorias: listaCategorias, layout: 'layout_admin'});
+        let listaMarcas = [];
+        let marca = new marcaModel();
+        listaMarcas = await marca.listar();
+
+        res.render('admin/cadastrarProd',{listaCategorias: listaCategorias,listaMarcas: listaMarcas, layout: 'layout_admin'});
     }
     async cadastrar(req,res){
         const tipoItem = req.body.tipoItem;
@@ -21,8 +23,9 @@ class produtosController{
         const preco = req.body.preco;
         const descricao = req.body.descricao;
         const categoria = req.body.categoria;
+        const marca = req.body.marca;
 
-        let prod = new produtoModel(null,tipoItem,nome,preco,descricao,categoria);
+        let prod = new produtoModel(null,tipoItem,nome,preco,descricao,categoria,null,marca,null,null);
         
         let result = await prod.cadastrar();
         if(result)
@@ -37,8 +40,9 @@ class produtosController{
         const preco = req.body.preco;
         const descricao = req.body.descricao;
         const categoria = req.body.categoria;
+        const marca = req.body.marca;
 
-        let prod = new produtoModel(id,tipoItem,nome,preco,descricao, categoria);
+        let prod = new produtoModel(id,tipoItem,nome,preco,descricao,categoria,null,marca,null,null);
         
         let result = await prod.alterar();
         if(result)

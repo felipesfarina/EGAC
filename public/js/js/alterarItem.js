@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(tipoItem.value == 1 || tipoItem.value == 2){ //PRODUTO INSUMO
             preco.style.display = 'block';            
             descricao.style.display = 'block';
-            marca.style.display = 'none';
+            marca.style.display = 'block';
             categoria.style.display = 'block';
         }
         if(tipoItem.value == 3){ //serviço
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function(){
             categoria.style.display = 'none';
         }
         if(tipoItem.value == 4){ // equip Agricola
-            preco.style.display = 'block';  
+            preco.style.display = 'block';
             descricao.style.display = 'block';
             marca.style.display = 'block';
             categoria.style.display = 'block';
@@ -99,14 +99,15 @@ document.addEventListener('DOMContentLoaded', function(){
             categoria.style.borderColor = '';
         console.log(vetorVal)
         if(tipoItem.value == 1 || tipoItem.value == 2){ // PRODUTO INSUMO
-            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value && categoria.value && preco.value >= 0){
+            if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value && categoria.value > 0 && preco.value >= 0 && marca.value > 0){
                 obj = {
                     id: id.value,
                     tipoItem : tipoItem.value,
                     nome : nome.value,
                     preco: preco.value,
                     descricao: descricao.value,
-                    categoria: categoria.value
+                    categoria: categoria.value,
+                    marca: marca.value
                 }
                 fetch('/admin/alterarProduto',{
                     method: 'POST',

@@ -40,6 +40,7 @@
             <th>Quantidade em Estoque</th>
             <th>Descrição</th>
             <th>Categoria</th>
+            <th>Marca</th>
             <th>Alterar/Excluir</th>
             <th><a href="/admin/CadastrarProduto">Cadastrar novo</a></th>
         </thead>
@@ -52,6 +53,7 @@
                     <td>A fazer</td>
                     <td><%=listaProdutos[i].descricao%></td>
                     <td><%=listaProdutos[i].categoria_nome%></td>
+                    <td><%=listaProdutos[i].marca_nome%></td>
                     <td>
                         <a href="/admin/alterarItem/1/<%=listaProdutos[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         <button data-id="<%=listaProdutos[i].id%>" data-tipo="1"  data-nome='<%=listaProdutos[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>
@@ -69,6 +71,7 @@
             <th>Quantidade em Estoque</th>
             <th>Descrição</th>
             <th>Categoria</th>
+            <th>Marca</th>
             <th>Alterar/Excluir</th>
             <th><a href="/admin/CadastrarProduto">Cadastrar novo</a></th>
         </thead>
@@ -81,6 +84,7 @@
                     <td>A fazer</td>
                     <td><%=listaInsumos[i].descricao%></td>
                     <td><%=listaInsumos[i].categoria_nome%></td>
+                    <td><%=listaInsumos[i].marca_nome%></td>
                     <td>
                         <a href="/admin/alterarItem/2/<%=listaInsumos[i].id%>" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         <button data-id="<%=listaInsumos[i].id%>" data-tipo="1"  data-nome='<%=listaInsumos[i].nome%>' class="btn btn-danger btnExcluir"><i class="bi bi-trash-fill"></i></button>

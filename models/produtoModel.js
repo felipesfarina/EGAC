@@ -8,6 +8,9 @@ class produtoModel{
     #descricao;
     #categoria;
     #categoria_nome;
+    #marca;
+    #marca_nome;
+    #estoque;
 
     set id(valor){this.#id = valor};
     get id(){return this.#id};
@@ -23,8 +26,12 @@ class produtoModel{
     get categoria(){return this.#categoria};
     set categoria_nome(valor){this.#categoria_nome = valor};
     get categoria_nome(){return this.#categoria_nome};
+    set marca_nome(valor){this.#marca_nome = valor};
+    get marca_nome(){return this.#marca_nome};
+    set estoque(valor){this.#estoque = valor};
+    get estoque(){return this.#estoque};
 
-    constructor(id,tipo,nome,preco,descricao, categoria, categoria_nome){
+    constructor(id,tipo,nome,preco,descricao, categoria, categoria_nome, marca, marca_nome, estoque){
         this.#id = id;
         this.#tipo = tipo;
         this.#nome = nome;
@@ -32,11 +39,14 @@ class produtoModel{
         this.#descricao = descricao;
         this.#categoria = categoria;
         this.#categoria_nome = categoria_nome;
+        this.#marca = marca;
+        this.#marca_nome = marca_nome;
+        this.#estoque = estoque;
     }
 
     async cadastrar(){
-        const sql = 'insert into tb_Produto(prod_nome,prod_tipo,prod_preco,prod_descricao, prod_categoria) values(?,?,?,?,?)';
-        const valores = [this.#nome, this.#tipo, this.#preco, this.#descricao, this.#categoria];
+        const sql = 'insert into tb_Produto(prod_nome,prod_tipo,prod_preco,prod_descricao, prod_categoria, prod_marca) values(?,?,?,?,?,?)';
+        const valores = [this.#nome, this.#tipo, this.#preco, this.#descricao, this.#categoria,this.#marca];
         const banco = new Database();
 
         let result = await banco.ExecutaComandoNonQuery(sql,valores);
@@ -44,38 +54,38 @@ class produtoModel{
     }
 
     async listar(){
-        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id';
+        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id inner join tb_Marca m on p.prod_marca = m.marca_id';
         const banco = new Database();
         const rows = await banco.ExecutaComando(sql);
         
         let lista = [];
         for(let i=0; i<rows.length;i++){
-            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome']));
+            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome'], rows[i]['prod_marca'], rows[i]['marca_nome'], rows[i]['prod_estoque']));
         }
 
         return lista;
     }
     
     async listarProd(){
-        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id where prod_tipo = 1';
+        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id inner join tb_Marca m on p.prod_marca = m.marca_id where prod_tipo = 1';
         const banco = new Database();
         const rows = await banco.ExecutaComando(sql);
         
         let lista = [];
         for(let i=0; i<rows.length;i++){
-            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome']));
+            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome'], rows[i]['prod_marca'], rows[i]['marca_nome'], rows[i]['prod_estoque']));
         }
 
         return lista;
     }
     async listarInsumo(){
-        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id where prod_tipo = 2';
+        const sql ='select * from tb_Produto p inner join tb_Categoria c on p.prod_categoria = c.categoria_id inner join tb_Marca m on p.prod_marca = m.marca_id where prod_tipo = 2';
         const banco = new Database();
         const rows = await banco.ExecutaComando(sql);
         
         let lista = [];
         for(let i=0; i<rows.length;i++){
-            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome']));
+            lista.push(new produtoModel(rows[i]['prod_id'],rows[i]['prod_tipo'], rows[i]['prod_nome'], rows[i]['prod_preco'], rows[i]['prod_descricao'], rows[i]['prod_categoria'], rows[i]['categoria_nome'], rows[i]['prod_marca'], rows[i]['marca_nome'], rows[i]['prod_estoque']));
         }
 
         return lista;
@@ -87,13 +97,13 @@ class produtoModel{
         const banco = new Database();
         
         const row = await banco.ExecutaComando(sql,valores);
-        let prod = new produtoModel(row['0']['prod_id'], row['0']['prod_tipo'], row['0']['prod_nome'], row['0']['prod_preco'], row['0']['prod_descricao'], row['0']['prod_categoria']);
+        let prod = new produtoModel(row['0']['prod_id'], row['0']['prod_tipo'], row['0']['prod_nome'], row['0']['prod_preco'], row['0']['prod_descricao'], row['0']['prod_categoria'],null,row['0']['prod_marca'],null,row['0']['prod_estoque']);
         return prod;
     }
 
     async alterar(){
-        const sql = 'update tb_Produto set prod_nome = ?, prod_tipo = ?, prod_preco = ?, prod_descricao = ?, prod_categoria = ? where prod_id = ?';
-        const valores = [this.#nome,this.#tipo,this.#preco,this.#descricao,this.#categoria, this.#id];
+        const sql = 'update tb_Produto set prod_nome = ?, prod_tipo = ?, prod_preco = ?, prod_descricao = ?, prod_categoria = ?, prod_marca = ? where prod_id = ?';
+        const valores = [this.#nome,this.#tipo,this.#preco,this.#descricao,this.#categoria,this.#marca, this.#id];
         const banco = new Database();
 
         let result = await banco.ExecutaComandoNonQuery(sql,valores);

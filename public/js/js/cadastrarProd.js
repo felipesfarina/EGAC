@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
         const descricao = document.getElementById('descricaoval');
         const tipoItem = document.getElementById('tipoItem');
         const categoria = document.getElementById('categoriaval');
+        const marca = document.getElementById('marcaval');
 
         let vetorVal= [];
         if(!nome.value)
@@ -46,6 +47,10 @@ document.addEventListener('DOMContentLoaded', function(){
             vetorVal.push(categoria);
         else
             categoria.style.borderColor = '';
+        if(marca.value == 0)
+            vetorVal.push(marca);
+        else
+            marca.style.borderColor = '';
         if(vetorVal.length == 0){
             if(nome.value && isFinite(Number(preco.value)) && preco.value && descricao.value){
                 obj = {
@@ -53,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function(){
                     nome : nome.value,
                     preco: preco.value,
                     descricao: descricao.value,
-                    categoria: categoria.value
+                    categoria: categoria.value,
+                    marca: marca.value
                 }
                 fetch('/admin/cadastrarProd',{
                     method: 'POST',
@@ -71,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         preco.value='';
                         descricao.value='';
                         categoria.value='';
+                        marca.value='';
                 })
                 return
             }
