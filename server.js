@@ -26,7 +26,6 @@ server.use(express.urlencoded({extended: true}));
 //Configurar a possibilidade de fazer parse em uma string JSON
 server.use(express.json());
 
-
 server.use("/", routerHome);
 server.use('/usuario',routerUsuario);
 server.use('/AdminLogin',routerLoginAdmin);

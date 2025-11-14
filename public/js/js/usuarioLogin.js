@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function(){
 
   const formulario = document.getElementById('formulario-login');
   const email = document.getElementById('login-email');
@@ -8,15 +9,13 @@
   formulario.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // Limpa mensagens anteriores
     erroEmail.textContent = '';
     erroSenha.textContent = '';
 
     let valido = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Validação do e-mail
-    if (!email.value.trim()) {
+    if (!email.value) {
       erroEmail.textContent = 'O campo de e-mail é obrigatório.';
       valido = false;
     } else if (!emailRegex.test(email.value)) {
@@ -24,8 +23,7 @@
       valido = false;
     }
 
-    // Validação da senha
-    if (!senha.value.trim()) {
+    if (!senha.value) {
       erroSenha.textContent = 'O campo de senha é obrigatório.';
       valido = false;
     } else if (senha.value.length < 6) {
@@ -33,86 +31,44 @@
       valido = false;
     }
 
-    // Se estiver tudo certo
     if (valido) {
-      document.getElementById('mensagem-sucesso').style.display = 'block';
+      let obj = {
+        email: email.value,
+        senha: senha.value
+      }
+      fetch('/usuario/login',{
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+        })
+        .then(function(resposta) {
+            return resposta.json();
+        })
+        .then(function(corpo) {
+          let msgfinal = document.getElementById('mensagem-sucesso');
+          msgfinal.style.display = 'block';
+            if(corpo.ok){
+              msgfinal.textContent = corpo.msg;
+              msgfinal.classList = 'text-success';
+              setTimeout(function(){
+                window.location.href = corpo.redirecionarPara;
+              }, 1000);
+            }
+            else{
+              erroSenha.textContent = corpo.msg;
+              msgfinal.style.display = 'none';
+            }
+      })
     }
   });
 
-  // Faz a mensagem de erro sumir ao pressionar qualquer tecla
   email.addEventListener('keydown', function() {
     erroEmail.textContent = '';
   });
-
   senha.addEventListener('keydown', function() {
     erroSenha.textContent = '';
   });
 
-
-  let usuariosLogados = [];
-
-function montarTabelaLogin() {
-  const tbody = document.querySelector('#tb-body');
-  let html = '';
-  for (let u of usuariosLogados) {
-    html += `
-      <tr>
-        <td><input type="checkbox" data-id="${u.id}"></td>
-        <td>${u.email}</td>
-        <td><a href="#" onclick="excluirUsuario(${u.id})">&#9746;</a></td>
-      </tr>`;
-  }
-  tbody.innerHTML = html;
-}
-
-function adicionarLogin(email) {
-  const novo = {
-    id: new Date().getTime(),
-    email: email
-  };
-  usuariosLogados.push(novo);
-  montarTabelaLogin();
-}
-
-function excluirUsuario(idDelete) {
-  usuariosLogados = usuariosLogados.filter(u => u.id != idDelete);
-  montarTabelaLogin();
-}
-
-function excluirSelecionadosLogin() {
-  const checkboxes = document.querySelectorAll('[data-id]');
-  for (let ck of checkboxes) {
-    if (ck.checked) {
-      excluirUsuario(Number(ck.dataset.id));
-    }
-  }
-}
-
-function selecionaTodosLogin() {
-  const checkboxes = document.querySelectorAll('[data-id]');
-  const ckPai = document.querySelector('#ckTodos');
-  for (let ck of checkboxes) {
-    ck.checked = ckPai.checked;
-  }
-}
-
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('#ckTodos').addEventListener('click', selecionaTodosLogin);
-    document.querySelector('#btnExcluirSelecionados').addEventListener('click', excluirSelecionadosLogin);
-
-    document.querySelector('#formulario-login').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const email = document.querySelector('#login-email').value.trim();
-      const senha = document.querySelector('#login-senha').value.trim();
-
-      if (email !== '' && senha !== '') {
-        adicionarLogin(email);
-        this.reset();
-        document.querySelector('#mensagem-sucesso').style.display = 'block';
-        setTimeout(() => {
-          document.querySelector('#mensagem-sucesso').style.display = 'none';
-        }, 3000);
-      }
-    });
-  });
+});
