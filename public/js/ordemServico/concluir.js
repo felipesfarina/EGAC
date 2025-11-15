@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function(){
     
-    let inputProcurarPessoa = document.getElementById('procurarPessoaval');
-    let selectPessoa = document.getElementById('pessoaval');
-    let selectEqAg = document.getElementById('EqAgricolaval');
-
-    inputProcurarPessoa.addEventListener('blur', function(){
-        if(inputProcurarPessoa.value){
-            let nome = {nome : inputProcurarPessoa.value};
-            fetch("/admin/buscarCliente",{
+    let inputProcurarInsumo = document.getElementById('procurarInsumoval');
+    let inputInsumoQtd = document.getElementById('quantidadeInsumoval');
+    let selectInsumo = document.getElementById('insumoval')
+    inputProcurarInsumo.addEventListener('blur', function(){
+        if(inputProcurarInsumo.value){
+            let nome = {nome : inputProcurarInsumo.value};
+            fetch("/admin/buscarInsumoNome",{
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -18,77 +17,149 @@ document.addEventListener('DOMContentLoaded', function(){
                 return resposta.json();
             })
             .then(function(corpo){
-                selectPessoa.innerHTML = '';
+                selectInsumo.innerHTML = '';
                 if(corpo.lista.length == 0 ){
-                    selectPessoa.innerHTML = '<option value="0">Pessoa não existente no banco de dados!</option>'
-                    selectEqAg.innerHTML = '<option value="0" selected>Insira o nome do proprietário | empresa no campo acima...</option>'
+                    selectInsumo.innerHTML = '<option value="0">Insumo não existente no banco de dados!</option>'
                 }
                 else{
                     for(let i=0; i < corpo.lista.length;i++){
-                        let pessoa = corpo.lista[i];
-                        selectPessoa.innerHTML += '<option value="'+pessoa.id+'">'+pessoa.nome+'</option>' 
+                        let insumo = corpo.lista[i];
+                        selectInsumo.innerHTML += '<option value="'+insumo.id+'">'+insumo.nome+'</option>' 
                     }
-                    procurarEqAg();
                 }
             })
         }
     });
-    selectPessoa.addEventListener('change', procurarEqAg);
     
-    function procurarEqAg(){
+    let listabtnExcluirInsumo = document.querySelectorAll('.btnExcluirInsumo');
+    let msgErroInsumo = document.getElementById('msgErroInsumo');
+    let listaInsumo = []
+    let tableInsumo = document.getElementById('tableInsumo'); 
+    document.getElementById('AddInsumo').addEventListener('click', addInsumo);
+    function addInsumo(){
+        msgErroInsumo.textContent = '';
+        let ok = true;
+        if(selectInsumo.value == 0){
+            ok = false;
+            msgErroInsumo.textContent = 'Selecione um Item para adicionar!';
+        }
+        for(i in listaInsumo){
+            if(listaInsumo[i].id == selectInsumo.value){
+                ok = false;
+                msgErroInsumo.textContent = 'Este item já foi adicionado!';
+            }
+        }
+        if(ok == true){
+            listaInsumo.push({id: selectInsumo.value, qtd: inputInsumoQtd.value});
+            console.log(listaInsumo);
+            
+            tableInsumo.innerHTML+= `
+            <tr>
+            <td>${selectInsumo.value}</td>
+            <td>${selectInsumo.textContent}</td>
+            <td>${inputInsumoQtd.value}</td>
+            <td><button class='btn btn-danger btnExcluirInsumo' data-id='${selectInsumo.value}'><i class="bi bi-trash-fill"></i></button></td>
+            </tr>`;
 
-        fetch("/admin/buscarEqAgricolaCliente",{
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({id: selectPessoa.value})
-            })
-        .then(function(resposta){
-            return resposta.json();
-        })
-        .then(function(corpo){
-            selectEqAg.innerHTML = '';
-            if(corpo.lista.length == 0 ){
-                selectEqAg.innerHTML = '<option value="0">'+selectPessoa.textContent+' não possui Equipamentos Agrícolas cadastrados!</option>'
+            listabtnExcluirInsumo = [];
+            listabtnExcluirInsumo = document.querySelectorAll('.btnExcluirInsumo');
+
+            for(let i=0; i<listabtnExcluirInsumo.length;i++){
+                listabtnExcluirInsumo[i].addEventListener('click', removerInsumo);
             }
-            for(let i=0; i < corpo.lista.length;i++){
-                let EqAg = corpo.lista[i];
-                selectEqAg.innerHTML += '<option value="'+EqAg.id+'">'+EqAg.nome+'</option>' 
+        }
+    }
+
+    function removerInsumo(){
+        let id = this.dataset.id
+        for(i in listaInsumo){
+            if(listaInsumo[i].id == id){
+                listaInsumo.splice(i,1);
             }
-        })
-    };
+        }
+        console.log(listaInsumo)
+        this.parentElement.parentElement.remove();
+    }
     
     let inputProcurarFuncionario = document.getElementById('procurarFuncval');
+    let selectFuncionario = document.getElementById('funcval');
     inputProcurarFuncionario.addEventListener('blur', function(){
-
-        let nome = {nome : inputProcurarFuncionario.value};
-        fetch("/admin/buscarFuncionario",{
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(nome)
+        if(inputProcurarFuncionario.value){
+                let nome = {nome : inputProcurarFuncionario.value};
+                fetch("/admin/buscarFuncionario",{
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(nome)
+                })
+            .then(function(resposta){
+                return resposta.json();
             })
-        .then(function(resposta){
-            return resposta.json();
-        })
-        .then(function(corpo){
-            let selectFuncionario = document.getElementById('funcval');
-            selectFuncionario.innerHTML = '';
-            if(corpo.lista.length == 0 ){
-                selectFuncionario.innerHTML = '<option value="0">Funcionário não existente no banco de dados!</option>'
-            }
-            for(let i=0; i < corpo.lista.length;i++){
-                let func = corpo.lista[i];
-                selectFuncionario.innerHTML += '<option value="'+func.id+'">'+func.nome+'</option>' 
-            }
-        })
+            .then(function(corpo){
+                selectFuncionario.innerHTML = '';
+                if(corpo.lista.length == 0 ){
+                    selectFuncionario.innerHTML = '<option value="0">Funcionário não existente no banco de dados!</option>'
+                }
+                for(let i=0; i < corpo.lista.length;i++){
+                    let func = corpo.lista[i];
+                    selectFuncionario.innerHTML += '<option value="'+func.id+'">'+func.nome+'</option>' 
+                }
+            })
+        }
     });
 
+    let listabtnExcluirSubItem = document.querySelectorAll('.btnExcluirSubItem');
+    let msgErroSubItem = document.getElementById('msgErroSubItem');
+    let listaSubItem = []
+    let tableSubItem = document.getElementById('tableSubItem'); 
+    document.getElementById('AddSubItem').addEventListener('click', addSubItem);
+    function addSubItem(){
+        msgErroSubItem.textContent = '';
+        let ok = true;
+        if(selectFuncionario.value == 0){
+            ok = false;
+            msgErroSubItem.textContent = 'Selecione um Funcionario para adicionar Sub-Item!';
+        }
+        for(i in listaSubItem){
+            if(listaSubItem[i].id == selectFuncionario.value){
+                ok = false;
+                msgErroSubItem.textContent = 'Este item já foi adicionado!';
+            }
+        }
+        if(ok == true){
+            listaSubItem.push({id: selectFuncionario.value, qtd: inputSubItemQtd.value}); // NO EJS , TEM QUE POR ID FUNC NA TABELA E ENTÃO VER AQ
+            console.log(listaSubItem);
+            
+            tableSubItem.innerHTML+= `
+            <tr>
+            <td>${selectFuncionario.value}</td>
+            <td>${selectFuncionario.textContent}</td>
+            <td>${inputSubItemQtd.value}</td>
+            <td><button class='btn btn-danger btnExcluirSubItem' data-id='${selectFuncionario.value}'><i class="bi bi-trash-fill"></i></button></td>
+            </tr>`;
 
-    let btn = document.getElementById('cadastrar');
-    btn.addEventListener('click', gravar);
+            listabtnExcluirSubItem = [];
+            listabtnExcluirSubItem = document.querySelectorAll('.btnExcluirSubItem');
+
+            for(let i=0; i<listabtnExcluirSubItem.length;i++){
+                listabtnExcluirSubItem[i].addEventListener('click', removerSubItem);
+            }
+        }
+    }
+
+    function removerSubItem(){
+        let id = this.dataset.id
+        for(i in listaSubItem){
+            if(listaSubItem[i].id == id){
+                listaSubItem.splice(i,1);
+            }
+        }
+        console.log(listaSubItem)
+        this.parentElement.parentElement.remove();
+    }
+
+    document.getElementById('concluirOS').addEventListener('click', gravar);
 
     function gravar(){
         const pessoa = document.getElementById('pessoaval');

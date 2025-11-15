@@ -118,6 +118,26 @@ class produtoModel{
         let result = await banco.ExecutaComandoNonQuery(sql,valores);
         return result;
     }
+
+    async buscarInsumoNome(){
+        let sql = 'select * from tb_Produto where prod_nome like ? and prod_tipo = 2;';
+        let valores = [this.#nome];
+        let banco = new Database();
+        let rows = await banco.ExecutaComando(sql,valores);
+
+        let lista = [];
+        for(let i=0; i<rows.length;i++){
+            lista.push(new produtoModel(rows[i]['prod_id'],null,rows[i]['prod_nome']))
+        }
+        return lista;
+    }
+
+    toJSON(){
+        return{
+            id: this.#id,
+            nome: this.#nome
+        }
+    }
 }
 
 module.exports = produtoModel;

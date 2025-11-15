@@ -44,6 +44,7 @@ router.post('/alterarPJ', pjController.alterar);
 router.post('/buscarCliente', pessoaController.buscarClienteNome);
 router.post('/buscarEqAgricolaCliente', equipAgricolaController.buscarEqAgCliente);
 router.post('/buscarFuncionario', pfController.buscarFuncionarioNome);
+router.post('/buscarInsumoNome', produtosController.buscarInsumoNome);
                 // CADASTRAR ITENS
 router.get('/cadastrarProduto', produtosController.cadastrarView);
 router.get('/cadastrarServico', servicoController.cadastrarView);
